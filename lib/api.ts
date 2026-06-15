@@ -22,7 +22,9 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const original = error.config;
-    if (error.response?.status === 401 && !original._retry) {
+    // Don't retry for auth endpoints — a 401 there means bad credentials, not expired token
+    const isAuthEndpoint = original?.url?.includes('/auth/');
+    if (error.response?.status === 401 && !original._retry && !isAuthEndpoint) {
       original._retry = true;
       try {
         const res = await axios.post(

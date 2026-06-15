@@ -38,9 +38,10 @@ export function LoginForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium mb-1">Email</label>
+        <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
         <input
           {...register('email')}
+          id="email"
           type="email"
           autoComplete="email"
           className="w-full border rounded px-3 py-2"
@@ -48,9 +49,10 @@ export function LoginForm() {
         {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
       </div>
       <div>
-        <label className="block text-sm font-medium mb-1">Password</label>
+        <label htmlFor="password" className="block text-sm font-medium mb-1">Password</label>
         <input
           {...register('password')}
+          id="password"
           type="password"
           autoComplete="current-password"
           className="w-full border rounded px-3 py-2"

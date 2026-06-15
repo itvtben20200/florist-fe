@@ -21,7 +21,7 @@ export function CtaBanner() {
               Book a free consultation with our team or create your account today. No credit card, no commitments — just discover how FloristOS fits your business.
             </p>
             <ul className="space-y-3 text-green-50 text-sm">
-              <li className="flex items-center gap-2.5"><span className="font-bold" style={{ color: '#e95e6f' }}>✓</span> 14-day free trial on all plans</li>
+              <li className="flex items-center gap-2.5"><span className="font-bold" style={{ color: '#e95e6f' }}>✓</span> No lock-in — transparent monthly pricing</li>
               <li className="flex items-center gap-2.5"><span className="font-bold" style={{ color: '#e95e6f' }}>✓</span> Dedicated onboarding — included, no extra cost</li>
               <li className="flex items-center gap-2.5"><span className="font-bold" style={{ color: '#e95e6f' }}>✓</span> GDPR compliant · EU-hosted data centers</li>
               <li className="flex items-center gap-2.5"><span className="font-bold" style={{ color: '#e95e6f' }}>✓</span> Cancel any time — no lock-in, no penalties</li>

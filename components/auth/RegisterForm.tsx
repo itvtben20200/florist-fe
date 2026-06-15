@@ -34,18 +34,18 @@ export function RegisterForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium mb-1">Full Name</label>
-        <input {...register('name')} className="w-full border rounded px-3 py-2" />
+        <label htmlFor="name" className="block text-sm font-medium mb-1">Full Name</label>
+        <input {...register('name')} id="name" className="w-full border rounded px-3 py-2" />
         {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
       </div>
       <div>
-        <label className="block text-sm font-medium mb-1">Email</label>
-        <input {...register('email')} type="email" autoComplete="email" className="w-full border rounded px-3 py-2" />
+        <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
+        <input {...register('email')} id="email" type="email" autoComplete="email" className="w-full border rounded px-3 py-2" />
         {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
       </div>
       <div>
-        <label className="block text-sm font-medium mb-1">Password</label>
-        <input {...register('password')} type="password" autoComplete="new-password" className="w-full border rounded px-3 py-2" />
+        <label htmlFor="password" className="block text-sm font-medium mb-1">Password</label>
+        <input {...register('password')} id="password" type="password" autoComplete="new-password" className="w-full border rounded px-3 py-2" />
         {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
       </div>
       {errors.root && <p className="text-red-500 text-sm">{errors.root.message}</p>}

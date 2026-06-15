@@ -1,0 +1,26 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <rect x="160" y="120" width="880" height="560" rx="28" fill="#FFFFFF" fill-opacity="0.08" stroke="#94A3B8" stroke-opacity="0.3"/>
+  <circle cx="300" cy="200" r="4" fill="#38BDF8"/>
+  <circle cx="390" cy="260" r="4" fill="#38BDF8"/>
+  <circle cx="480" cy="180" r="4" fill="#38BDF8"/>
+  <circle cx="900" cy="230" r="4" fill="#38BDF8"/>
+  <circle cx="820" cy="320" r="4" fill="#38BDF8"/>
+  <line x1="300" y1="200" x2="390" y2="260" stroke="#38BDF8" stroke-opacity="0.4"/>
+  <line x1="390" y1="260" x2="480" y2="180" stroke="#38BDF8" stroke-opacity="0.4"/>
+  <line x1="820" y1="320" x2="900" y2="230" stroke="#38BDF8" stroke-opacity="0.4"/>
+  <path d="M600 250L760 320V440C760 545 690 625 600 650C510 625 440 545 440 440V320L600 250Z" fill="url(#shield)"/>
+  <path d="M600 330L682 366V438C682 503 641 553 600 571C559 553 518 503 518 438V366L600 330Z" fill="#E0F2FE"/>
+  <path d="M560 448L590 478L645 420" stroke="#0369A1" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="600" y="715" font-size="40" text-anchor="middle" fill="#E2E8F0" font-family="Arial">MANAGED SOC</text>
+</svg>

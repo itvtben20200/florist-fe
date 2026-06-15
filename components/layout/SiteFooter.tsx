@@ -6,7 +6,7 @@ export function SiteFooter() {
       <div className="container mx-auto px-4 max-w-screen-xl">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-10 border-b border-white/10">
           <div>
-            <img src="/flourist.jpeg" alt="FloristOS" className="h-11 rounded mb-4" />
+            <img src="/floristenzentrale-logov2.png" alt="FloristOS" className="h-11 rounded mb-4" />
             <p className="text-sm text-white/80 max-w-xs">Built for flower shops who want to focus on beautiful arrangements, not spreadsheets. Trusted in 500+ locations across Europe.</p>
           </div>
           <div>

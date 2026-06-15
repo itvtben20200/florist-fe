@@ -37,6 +37,7 @@ export function Navbar() {
         <nav className="hidden md:block">
           <ul className="flex list-none gap-8 m-0 p-0">
             {!isAdmin && <li><Link href="/" className={linkCls}>Our Solutions</Link></li>}
+            {!isAdmin && <li><Link href="/subscriptions" className={linkCls}>Subscriptions &amp; Events</Link></li>}
             {isAdmin && <li><Link href="/admin/dashboard" className={linkCls}>Admin</Link></li>}
             {user && <li><Link href="/account" className={linkCls}>Account</Link></li>}
           </ul>

@@ -1,7 +1,36 @@
 ﻿'use client';
 import { useState } from 'react';
-import { useCartStore } from '@/store/cartStore';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
+// Mirrors the alias/fuzzy logic in lib/solutions.ts so card links resolve
+// to the canonical slug even when the backend slug differs.
+const SLUG_ALIASES: Record<string, string> = {
+  'soc-security-operations-center': 'managed-soc',
+  'managed-soc-security-operations-center': 'managed-soc',
+  'managed-soc-soc': 'managed-soc',
+  'secured-workplace': 'managed-secured-workplace',
+  'managed-workplace': 'managed-secured-workplace',
+  'secure-workplace': 'managed-secured-workplace',
+  'florist-crm-suite': 'florist-core',
+  'florist-core-platform': 'florist-core',
+  'daily-close': 'daily-close-agent',
+  'monthly-close': 'monthly-close-agent',
+  'quarterly-close': 'quarterly-close-agent',
+  'yearly-close': 'yearly-close-agent',
+  'annual-close-agent': 'yearly-close-agent',
+};
+
+function resolveSlug(raw: string): string {
+  if (SLUG_ALIASES[raw]) return SLUG_ALIASES[raw];
+  const lower = raw.toLowerCase();
+  if (lower.includes('soc') || lower.includes('security-operations')) return 'managed-soc';
+  if (lower.includes('workplace')) return 'managed-secured-workplace';
+  if (lower.includes('daily') && lower.includes('close')) return 'daily-close-agent';
+  if (lower.includes('monthly') && lower.includes('close')) return 'monthly-close-agent';
+  if (lower.includes('quarterly') && lower.includes('close')) return 'quarterly-close-agent';
+  if ((lower.includes('yearly') || lower.includes('annual')) && lower.includes('close')) return 'yearly-close-agent';
+  return raw; // fall back to original
+}
 
 interface Product {
   id: string;
@@ -21,27 +50,10 @@ const serif: React.CSSProperties = {
 };
 
 export function ProductCard({ product }: { product: Product }) {
-  const addItem = useCartStore((s) => s.addItem);
-  const router = useRouter();
   const [hovered, setHovered] = useState(false);
-  const [added, setAdded] = useState(false);
 
   const price = Number(product.price);
-  const outOfStock = product.stock === 0;
-  const lowStock = product.stock > 0 && product.stock <= 10;
-
-  const handleAddToCart = () => {
-    if (outOfStock) return;
-    addItem({ productId: product.id, name: product.name, price, quantity: 1, image: product.images?.[0] });
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1800);
-  };
-
-  const handleBuyNow = () => {
-    if (outOfStock) return;
-    addItem({ productId: product.id, name: product.name, price, quantity: 1, image: product.images?.[0] });
-    router.push('/checkout');
-  };
+  const detailHref = `/solutions/${resolveSlug(product.slug)}`;
 
   return (
     <div
@@ -56,13 +68,15 @@ export function ProductCard({ product }: { product: Product }) {
         cursor: 'pointer',
       }}
     >
-      <div style={{ position: 'relative', height: '320px', overflow: 'hidden', background: '#f9f9f9' }}>
+      <Link href={detailHref} style={{ display: 'block', textDecoration: 'none' }}>
+      <div style={{ position: 'relative', height: 'auto', overflow: 'hidden', background: '#f9f9f9', borderRadius: '12px' }}>
         {product.images?.[0] ? (
           <img
             src={product.images[0]}
             alt={product.name}
             style={{
-              width: '100%', height: '100%', objectFit: 'cover',
+              width: '100%', height: '100%', objectFit: 'contain',
+              borderRadius: '12px',
               transition: 'transform 0.6s ease',
               transform: hovered ? 'scale(1.07)' : 'scale(1)',
             }}
@@ -82,71 +96,30 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
         )}
 
-        {!outOfStock && (
-          <div style={{
+        <div style={{
             position: 'absolute', bottom: 0, left: 0, right: 0,
-            background: 'rgba(26,26,26,0.82)',
-            padding: '14px 20px',
-            display: 'flex', justifyContent: 'center',
-            transition: 'opacity 0.3s ease, transform 0.3s ease',
+            background: 'linear-gradient(to top, rgba(26,26,26,0.55) 0%, transparent 100%)',
+            height: '80px',
+            transition: 'opacity 0.3s ease',
             opacity: hovered ? 1 : 0,
-            transform: hovered ? 'translateY(0)' : 'translateY(8px)',
-          }}>
-            <button
-              onClick={handleAddToCart}
-              style={{
-                ...mono,
-                background: 'transparent',
-                border: '1px solid rgba(255,255,255,0.7)',
-                color: 'white',
-                fontSize: '11px',
-                fontWeight: 600,
-                letterSpacing: '2px',
-                textTransform: 'uppercase',
-                padding: '10px 28px',
-                cursor: 'pointer',
-              }}
-            >
-              {added ? 'Added' : '+ Add to Cart'}
-            </button>
-          </div>
-        )}
-
-        {outOfStock && (
-          <div style={{
-            position: 'absolute', top: '12px', left: '12px',
-            background: 'rgba(255,255,255,0.92)',
-            ...mono, fontSize: '10px', fontWeight: 700,
-            letterSpacing: '1.5px', textTransform: 'uppercase',
-            color: '#999', padding: '4px 12px',
-          }}>
-            Sold Out
-          </div>
-        )}
-        {lowStock && (
-          <div style={{
-            position: 'absolute', top: '12px', left: '12px',
-            background: '#e95e6f', color: 'white',
-            ...mono, fontSize: '10px', fontWeight: 700,
-            letterSpacing: '1.5px', textTransform: 'uppercase',
-            padding: '4px 12px',
-          }}>
-            Only {product.stock} left
-          </div>
-        )}
+            pointerEvents: 'none',
+          }} />
       </div>
+      </Link>
 
       <div style={{ padding: '20px 20px 24px' }}>
-        <h4 style={{
-          ...serif,
-          fontSize: '22px',
-          fontWeight: 500,
-          color: '#1a1a1a',
-          marginBottom: '6px',
-          lineHeight: 1.2,
-        }}>
-          {product.name}
-        </h4>
+        <Link href={detailHref} style={{ textDecoration: 'none' }}>
+          <h4 style={{
+            ...serif,
+            fontSize: '22px',
+            fontWeight: 500,
+            color: '#1a1a1a',
+            marginBottom: '6px',
+            lineHeight: 1.2,
+          }}>
+            {product.name}
+          </h4>
+        </Link>
 
         {product.description && (
           <p style={{
@@ -173,26 +146,29 @@ export function ProductCard({ product }: { product: Product }) {
           </span>
         </div>
 
-        <button
-          onClick={handleBuyNow}
-          disabled={outOfStock}
+        <Link
+          href={detailHref}
           style={{
             ...mono,
+            display: 'block',
             width: '100%',
-            background: outOfStock ? '#f0f0f0' : '#1a1a1a',
-            color: outOfStock ? '#aaa' : 'white',
+            background: '#1a1a1a',
+            color: 'white',
             border: 'none',
             padding: '13px',
             fontSize: '11px',
             fontWeight: 600,
             letterSpacing: '2px',
             textTransform: 'uppercase',
-            cursor: outOfStock ? 'not-allowed' : 'pointer',
+            cursor: 'pointer',
+            textDecoration: 'none',
+            textAlign: 'center',
             transition: 'background 0.3s ease',
+            boxSizing: 'border-box',
           }}
         >
-          {outOfStock ? 'Unavailable' : 'Start with This Plan'}
-        </button>
+          Start with This Plan
+        </Link>
       </div>
     </div>
   );
