@@ -1,36 +1,7 @@
 ﻿'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-
-// Mirrors the alias/fuzzy logic in lib/solutions.ts so card links resolve
-// to the canonical slug even when the backend slug differs.
-const SLUG_ALIASES: Record<string, string> = {
-  'soc-security-operations-center': 'managed-soc',
-  'managed-soc-security-operations-center': 'managed-soc',
-  'managed-soc-soc': 'managed-soc',
-  'secured-workplace': 'managed-secured-workplace',
-  'managed-workplace': 'managed-secured-workplace',
-  'secure-workplace': 'managed-secured-workplace',
-  'florist-crm-suite': 'florist-core',
-  'florist-core-platform': 'florist-core',
-  'daily-close': 'daily-close-agent',
-  'monthly-close': 'monthly-close-agent',
-  'quarterly-close': 'quarterly-close-agent',
-  'yearly-close': 'yearly-close-agent',
-  'annual-close-agent': 'yearly-close-agent',
-};
-
-function resolveSlug(raw: string): string {
-  if (SLUG_ALIASES[raw]) return SLUG_ALIASES[raw];
-  const lower = raw.toLowerCase();
-  if (lower.includes('soc') || lower.includes('security-operations')) return 'managed-soc';
-  if (lower.includes('workplace')) return 'managed-secured-workplace';
-  if (lower.includes('daily') && lower.includes('close')) return 'daily-close-agent';
-  if (lower.includes('monthly') && lower.includes('close')) return 'monthly-close-agent';
-  if (lower.includes('quarterly') && lower.includes('close')) return 'quarterly-close-agent';
-  if ((lower.includes('yearly') || lower.includes('annual')) && lower.includes('close')) return 'yearly-close-agent';
-  return raw; // fall back to original
-}
+import { resolveCanonicalSolutionSlug } from '@/lib/solutions';
 
 interface Product {
   id: string;
@@ -53,7 +24,7 @@ export function ProductCard({ product }: { product: Product }) {
   const [hovered, setHovered] = useState(false);
 
   const price = Number(product.price);
-  const detailHref = `/solutions/${resolveSlug(product.slug)}`;
+  const detailHref = `/solutions/${resolveCanonicalSolutionSlug(product.slug, product.name) ?? product.slug}`;
 
   return (
     <div

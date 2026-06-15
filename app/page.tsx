@@ -4,6 +4,7 @@ import { ProductCard } from '@/components/product/ProductCard';
 import { TestimonialsSection } from '@/components/layout/TestimonialsSection';
 import { CtaBanner } from '@/components/layout/CtaBanner';
 import { SiteFooter } from '@/components/layout/SiteFooter';
+import { getSolutionBySlug, resolveCanonicalSolutionSlug } from '@/lib/solutions';
 
 type HomeProduct = {
   id: string;
@@ -107,15 +108,24 @@ async function getProducts() {
 
 export default async function HomePage() {
   const products = (await getProducts()) as HomeProduct[];
-  const productsWithVisuals = products.map((p) => {
-    const mappedImage = getSolutionImage(p.name);
-    const mappedCopy = getSolutionCopy(p.name);
-    return {
-      ...p,
-      name: mappedCopy?.title ?? p.name,
-      description: mappedCopy?.description ?? p.description,
-      images: mappedImage ? [mappedImage] : p.images,
-    };
+  const productsWithVisuals = products.flatMap((product) => {
+    const canonicalSlug = resolveCanonicalSolutionSlug(product.slug, product.name);
+    const solutionContent = canonicalSlug ? getSolutionBySlug(canonicalSlug) : undefined;
+
+    if (!canonicalSlug || !solutionContent) {
+      return [];
+    }
+
+    const mappedCopy = getSolutionCopy(solutionContent.name);
+    const mappedImage = getSolutionImage(solutionContent.name) ?? solutionContent.heroImage;
+
+    return [{
+      ...product,
+      slug: canonicalSlug,
+      name: solutionContent.name,
+      description: mappedCopy?.description ?? product.description ?? solutionContent.tagline,
+      images: mappedImage ? [mappedImage] : product.images,
+    }];
   });
 
   return (

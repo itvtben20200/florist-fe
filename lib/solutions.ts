@@ -796,31 +796,74 @@ export const SOLUTIONS: Record<string, SolutionContent> = {
   },
 };
 
+const SOLUTION_SLUG_ALIASES: Record<string, string> = {
+  'soc-security-operations-center': 'managed-soc',
+  'managed-soc-security-operations-center': 'managed-soc',
+  'managed-soc-soc': 'managed-soc',
+  'secured-workplace': 'managed-secured-workplace',
+  'managed-workplace': 'managed-secured-workplace',
+  'secure-workplace': 'managed-secured-workplace',
+  'florist-core-platform': 'florist-core',
+  'florist-crm-suite': 'florist-core',
+  'daily-close': 'daily-close-agent',
+  'monthly-close': 'monthly-close-agent',
+  'quarterly-close': 'quarterly-close-agent',
+  'yearly-close': 'yearly-close-agent',
+  'annual-close-agent': 'yearly-close-agent',
+};
+
+const SOLUTION_NAME_TO_SLUG: Record<string, string> = {
+  'florist core': 'florist-core',
+  'daily close agent': 'daily-close-agent',
+  'monthly close agent': 'monthly-close-agent',
+  'quarterly close agent': 'quarterly-close-agent',
+  'yearly close agent': 'yearly-close-agent',
+  'managed secured workplace': 'managed-secured-workplace',
+  'managed soc': 'managed-soc',
+  'managed soc (security operations center)': 'managed-soc',
+};
+
+export function resolveCanonicalSolutionSlug(slug?: string, name?: string): string | undefined {
+  const rawSlug = slug?.trim();
+  if (rawSlug) {
+    if (SOLUTIONS[rawSlug]) return rawSlug;
+    if (SOLUTION_SLUG_ALIASES[rawSlug]) return SOLUTION_SLUG_ALIASES[rawSlug];
+
+    const lowerSlug = rawSlug.toLowerCase();
+    for (const key of Object.keys(SOLUTIONS)) {
+      if (lowerSlug.includes(key) || key.includes(lowerSlug)) return key;
+    }
+
+    if (lowerSlug.includes('soc') || lowerSlug.includes('security-operations')) return 'managed-soc';
+    if (lowerSlug.includes('workplace')) return 'managed-secured-workplace';
+    if (lowerSlug.includes('daily') && lowerSlug.includes('close')) return 'daily-close-agent';
+    if (lowerSlug.includes('monthly') && lowerSlug.includes('close')) return 'monthly-close-agent';
+    if (lowerSlug.includes('quarterly') && lowerSlug.includes('close')) return 'quarterly-close-agent';
+    if ((lowerSlug.includes('yearly') || lowerSlug.includes('annual')) && lowerSlug.includes('close')) return 'yearly-close-agent';
+    if (lowerSlug.includes('florist')) return 'florist-core';
+  }
+
+  const normalizedName = name?.trim().toLowerCase();
+  if (!normalizedName) return rawSlug;
+  if (SOLUTION_NAME_TO_SLUG[normalizedName]) return SOLUTION_NAME_TO_SLUG[normalizedName];
+  if (normalizedName.includes('soc') || normalizedName.includes('security operations')) return 'managed-soc';
+  if (normalizedName.includes('workplace')) return 'managed-secured-workplace';
+  if (normalizedName.includes('daily') && normalizedName.includes('close')) return 'daily-close-agent';
+  if (normalizedName.includes('monthly') && normalizedName.includes('close')) return 'monthly-close-agent';
+  if (normalizedName.includes('quarterly') && normalizedName.includes('close')) return 'quarterly-close-agent';
+  if ((normalizedName.includes('yearly') || normalizedName.includes('annual')) && normalizedName.includes('close')) return 'yearly-close-agent';
+  if (normalizedName.includes('florist')) return 'florist-core';
+
+  return rawSlug;
+}
+
 export function getSolutionBySlug(slug: string): SolutionContent | undefined {
   // 1. Exact key match
   if (SOLUTIONS[slug]) return SOLUTIONS[slug];
 
-  // 2. Known backend-generated slug aliases (backend slugifies product names differently)
-  const SLUG_ALIASES: Record<string, string> = {
-    // SOC — "Managed SOC (Security Operations Center)" → soc-security-operations-center
-    'soc-security-operations-center': 'managed-soc',
-    'managed-soc-security-operations-center': 'managed-soc',
-    'managed-soc-soc': 'managed-soc',
-    // Workplace variants
-    'secured-workplace': 'managed-secured-workplace',
-    'managed-workplace': 'managed-secured-workplace',
-    'secure-workplace': 'managed-secured-workplace',
-    // Florist Core variants
-    'florist-core-platform': 'florist-core',
-    'florist-crm-suite': 'florist-core',
-    // Close agent variants
-    'daily-close': 'daily-close-agent',
-    'monthly-close': 'monthly-close-agent',
-    'quarterly-close': 'quarterly-close-agent',
-    'yearly-close': 'yearly-close-agent',
-    'annual-close-agent': 'yearly-close-agent',
-  };
-  if (SLUG_ALIASES[slug]) return SOLUTIONS[SLUG_ALIASES[slug]];
+  // 2. Canonicalize known backend-generated slug variants.
+  const canonicalSlug = resolveCanonicalSolutionSlug(slug);
+  if (canonicalSlug && SOLUTIONS[canonicalSlug]) return SOLUTIONS[canonicalSlug];
 
   // 3. Fuzzy: find the first solution whose slug is contained in the incoming slug or vice-versa
   const lower = slug.toLowerCase();
