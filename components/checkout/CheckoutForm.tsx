@@ -62,8 +62,10 @@ export function CheckoutForm({ stripePromise }: { stripePromise: Promise<unknown
       // Extract path+search so port mismatches between backend config and actual FE port don't matter
       const redirectUrl = new URL(res.data.url);
       window.location.href = redirectUrl.pathname + redirectUrl.search;
-    } catch {
-      setError('root', { message: 'Failed to initiate checkout. Please try again.' });
+    } catch (err: unknown) {
+      const axiosErr = err as { response?: { data?: { error?: string } } };
+      const serverMsg = axiosErr?.response?.data?.error;
+      setError('root', { message: serverMsg ?? 'Failed to initiate checkout. Please try again.' });
     }
   };
 
