@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/store/cartStore';
-import { SolutionContent } from '@/lib/solutions';
+import { getSolutionBySlug, resolveCanonicalSolutionSlug, SolutionContent } from '@/lib/solutions';
 
 // ── Lead generation form ─────────────────────────────────────────
 function LeadForm({ accentColor, productName }: { accentColor: string; productName: string }) {
@@ -168,17 +168,65 @@ const TIER_COLOR: Record<string, string> = {
 export default function SolutionDetailClient({
   content,
   product,
+  products,
 }: {
   content: SolutionContent;
   product: BackendProduct | null;
+  products: BackendProduct[];
 }) {
   const addItem = useCartStore((s) => s.addItem);
   const router = useRouter();
   const [added, setAdded] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [selectedAddOnIds, setSelectedAddOnIds] = useState<string[]>([]);
+  const [activeModuleId, setActiveModuleId] = useState<string | null>(null);
 
   const price = product ? Number(product.price) : null;
   const outOfStock = product ? product.stock === 0 : false;
+  const isFloristCore = content.slug === 'florist-core';
+
+  const addOnProducts = useMemo(() => {
+    if (!isFloristCore || !product) return [];
+
+    return products.flatMap((p) => {
+      if (p.id === product.id) return [];
+
+      const canonicalSlug = resolveCanonicalSolutionSlug(p.slug, p.name);
+      if (!canonicalSlug || canonicalSlug === 'florist-core') return [];
+
+      const solutionContent = getSolutionBySlug(canonicalSlug);
+      return [{
+        ...p,
+        canonicalSlug,
+        displayName: solutionContent?.name ?? p.name,
+        displayImage: p.images?.[0] ?? solutionContent?.heroImage,
+        moduleTagline: solutionContent?.tagline,
+        moduleOverview: solutionContent?.overview,
+        moduleBenefits: solutionContent?.benefits?.slice(0, 3).map((b) => b.title) ?? [],
+      }];
+    });
+  }, [isFloristCore, product, products]);
+
+  const activeModule = useMemo(() => {
+    if (!isFloristCore || addOnProducts.length === 0) return undefined;
+    return addOnProducts.find((m) => m.id === activeModuleId) ?? addOnProducts[0];
+  }, [isFloristCore, addOnProducts, activeModuleId]);
+
+  const selectedAddOns = useMemo(
+    () => addOnProducts.filter((p) => selectedAddOnIds.includes(p.id)),
+    [addOnProducts, selectedAddOnIds],
+  );
+
+  const addOnsPrice = selectedAddOns.reduce((sum, p) => sum + Number(p.price), 0);
+  const totalPrice = (price ?? 0) + addOnsPrice;
+
+  const toggleAddOn = (productId: string) => {
+    setSelectedAddOnIds((current) => (
+      current.includes(productId)
+        ? current.filter((id) => id !== productId)
+        : [...current, productId]
+    ));
+  };
 
   const handleAddToCart = () => {
     if (!product || outOfStock) return;
@@ -189,6 +237,18 @@ export default function SolutionDetailClient({
       quantity: 1,
       image: content.heroImage,
     });
+
+    selectedAddOns.forEach((addOn) => {
+      if (addOn.stock === 0) return;
+      addItem({
+        productId: addOn.id,
+        name: addOn.displayName,
+        price: Number(addOn.price),
+        quantity: 1,
+        image: addOn.displayImage,
+      });
+    });
+
     setAdded(true);
     setTimeout(() => setAdded(false), 1800);
   };
@@ -202,6 +262,18 @@ export default function SolutionDetailClient({
       quantity: 1,
       image: content.heroImage,
     });
+
+    selectedAddOns.forEach((addOn) => {
+      if (addOn.stock === 0) return;
+      addItem({
+        productId: addOn.id,
+        name: addOn.displayName,
+        price: Number(addOn.price),
+        quantity: 1,
+        image: addOn.displayImage,
+      });
+    });
+
     router.push('/checkout');
   };
 
@@ -311,10 +383,15 @@ export default function SolutionDetailClient({
                 </span>
               ))}
             </div>
+          </div>
+        </div>
 
-            {/* Purchase card */}
+        {/* Full-width buy + add-ons */}
+        <div className="mt-2 lg:mt-4">
+          <div className={`grid gap-4 ${isFloristCore ? 'lg:grid-cols-2' : 'lg:grid-cols-1'}`}>
             <div
               style={{
+                order: isFloristCore && addOnProducts.length > 0 ? 2 : 1,
                 border: '1.5px solid #f0ede8',
                 borderRadius: '18px',
                 padding: '28px',
@@ -333,7 +410,7 @@ export default function SolutionDetailClient({
                       lineHeight: 1,
                     }}
                   >
-                    €{price.toFixed(2)}
+                    €{(isFloristCore ? totalPrice : price).toFixed(2)}
                   </span>
                   <span style={{ ...mono, fontSize: '13px', color: '#aaa', paddingBottom: '6px' }}>
                     / month per licence
@@ -348,6 +425,12 @@ export default function SolutionDetailClient({
               <p style={{ ...mono, fontSize: '11px', color: '#bbb', marginBottom: '22px', letterSpacing: '0.3px' }}>
                 Billed monthly · No long-term contract · Cancel anytime
               </p>
+
+              {isFloristCore && selectedAddOns.length > 0 && (
+                <p style={{ ...mono, fontSize: '11px', color: '#777', margin: '0 0 14px' }}>
+                  {selectedAddOns.length} add-on{selectedAddOns.length > 1 ? 's' : ''} selected (+€{addOnsPrice.toFixed(2)})
+                </p>
+              )}
 
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
@@ -395,7 +478,6 @@ export default function SolutionDetailClient({
                 </button>
               </div>
 
-              {/* Trust line */}
               <div className="flex items-center gap-4 mt-5 flex-wrap">
                 {[
                   { icon: '🔒', text: 'Secure checkout' },
@@ -408,9 +490,276 @@ export default function SolutionDetailClient({
                 ))}
               </div>
             </div>
+
+            {isFloristCore && addOnProducts.length > 0 && (
+              <div
+                style={{
+                  order: 1,
+                  border: '1.5px solid #f0ede8',
+                  borderRadius: '18px',
+                  padding: '20px',
+                  background: 'white',
+                  boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                  <span
+                    style={{
+                      ...mono,
+                      fontSize: '10px',
+                      fontWeight: 700,
+                      letterSpacing: '1.5px',
+                      textTransform: 'uppercase',
+                      color: '#8a2f44',
+                    }}
+                  >
+                    Add-on Modules
+                  </span>
+                  <div style={{ flex: 1, height: '1px', background: '#ebe6dc' }} />
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '10px' }}>
+                  {addOnProducts.map((addOn) => {
+                    const selected = selectedAddOnIds.includes(addOn.id);
+                    const addOnOutOfStock = addOn.stock === 0;
+
+                    return (
+                      <button
+                        key={addOn.id}
+                        type="button"
+                        onClick={() => !addOnOutOfStock && toggleAddOn(addOn.id)}
+                        disabled={addOnOutOfStock}
+                        style={{
+                          border: selected ? '1px solid #e95e6f' : '1px solid #f0ede8',
+                          borderRadius: '10px',
+                          overflow: 'hidden',
+                          background: '#fff',
+                          padding: 0,
+                          textAlign: 'left',
+                          cursor: addOnOutOfStock ? 'not-allowed' : 'pointer',
+                          opacity: addOnOutOfStock ? 0.65 : 1,
+                        }}
+                        aria-pressed={selected}
+                      >
+                        <div style={{ position: 'relative', height: '92px', background: '#f9f9f9', overflow: 'hidden' }}>
+                          {addOn.displayImage ? (
+                            <img
+                              src={addOn.displayImage}
+                              alt={addOn.displayName}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+                            />
+                          ) : (
+                            <div style={{ width: '100%', height: '100%' }} />
+                          )}
+
+                          <span
+                            aria-hidden="true"
+                            style={{
+                              position: 'absolute',
+                              top: '8px',
+                              right: '8px',
+                              width: '18px',
+                              height: '18px',
+                              borderRadius: '50%',
+                              border: selected ? '2px solid #e95e6f' : '2px solid rgba(26,26,26,0.25)',
+                              background: selected ? '#e95e6f' : '#ffffff',
+                              display: 'grid',
+                              placeItems: 'center',
+                            }}
+                          >
+                            {selected && (
+                              <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                                <path d="M2.8 6.2L5 8.3L9.2 4.1" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                              </svg>
+                            )}
+                          </span>
+                        </div>
+
+                        <div style={{ padding: '9px 9px 10px' }}>
+                          <p style={{ ...serif, fontSize: '16px', lineHeight: 1.1, color: '#1a1a1a', margin: '0 0 4px' }}>
+                            {addOn.displayName}
+                          </p>
+                          <p style={{ ...mono, fontSize: '11px', color: '#e95e6f', fontWeight: 600, margin: 0 }}>
+                            €{Number(addOn.price).toFixed(2)}/mo
+                          </p>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <p style={{ ...mono, fontSize: '11px', color: '#777', margin: '10px 0 0' }}>
+                  {selectedAddOns.length === 0
+                    ? 'Select add-ons to update the total.'
+                    : `${selectedAddOns.length} add-on${selectedAddOns.length > 1 ? 's' : ''} selected (+€${addOnsPrice.toFixed(2)})`}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </section>
+
+      {/* ── MODULE DEEP DIVE (FLORIST CORE ONLY) ── */}
+      {isFloristCore && addOnProducts.length > 0 && activeModule && (
+        <section style={{ background: 'white', borderTop: '1px solid #f0ede8', borderBottom: '1px solid #f0ede8' }}>
+          <div className="max-w-screen-xl mx-auto px-4 sm:px-[5%] py-14 sm:py-16">
+            <div className="mb-8">
+              <span
+                style={{
+                  ...mono,
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  letterSpacing: '2px',
+                  textTransform: 'uppercase',
+                  color: '#8a2f44',
+                }}
+              >
+                Module Deep Dive
+              </span>
+              <h2
+                style={{
+                  ...serif,
+                  fontSize: 'clamp(28px, 3.3vw, 42px)',
+                  fontWeight: 500,
+                  color: '#1a1a1a',
+                  marginTop: '10px',
+                  lineHeight: 1.1,
+                }}
+              >
+                Explore each Florist Core add-on
+              </h2>
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '10px',
+                marginBottom: '18px',
+              }}
+            >
+              {addOnProducts.map((module) => {
+                const isActive = module.id === activeModule.id;
+                return (
+                  <button
+                    key={module.id}
+                    type="button"
+                    onClick={() => setActiveModuleId(module.id)}
+                    style={{
+                      ...mono,
+                      textAlign: 'left',
+                      padding: '12px 14px',
+                      borderRadius: '10px',
+                      border: isActive ? '1.5px solid #e95e6f' : '1.5px solid #f0ede8',
+                      background: isActive ? '#fff5f6' : 'white',
+                      color: isActive ? '#8a2f44' : '#4f4a45',
+                      fontSize: '12px',
+                      fontWeight: isActive ? 700 : 600,
+                      letterSpacing: '0.2px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                    }}
+                    aria-pressed={isActive}
+                  >
+                    {module.displayName}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div
+              className="grid grid-cols-1 lg:grid-cols-[44%_56%]"
+              style={{
+                border: '1.5px solid #f0ede8',
+                borderRadius: '18px',
+                overflow: 'hidden',
+                background: '#fff',
+                boxShadow: '0 8px 30px rgba(0,0,0,0.05)',
+              }}
+            >
+              <div style={{ background: '#f6f3ef', minHeight: '260px', position: 'relative' }}>
+                {activeModule.displayImage ? (
+                  <img
+                    src={activeModule.displayImage}
+                    alt={activeModule.displayName}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+                  />
+                ) : (
+                  <div style={{ width: '100%', height: '100%' }} />
+                )}
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: '14px',
+                    left: '14px',
+                    ...mono,
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    letterSpacing: '1.5px',
+                    textTransform: 'uppercase',
+                    background: 'rgba(233,94,111,0.92)',
+                    color: 'white',
+                    padding: '5px 11px',
+                    borderRadius: '20px',
+                  }}
+                >
+                  Add-on Module
+                </span>
+              </div>
+
+              <div style={{ padding: '24px 24px 26px' }}>
+                <div className="flex items-center justify-between gap-3 mb-2 flex-wrap">
+                  <h3 style={{ ...serif, fontSize: '34px', fontWeight: 500, color: '#1a1a1a', lineHeight: 1.05, margin: 0 }}>
+                    {activeModule.displayName}
+                  </h3>
+                  <span style={{ ...mono, fontSize: '13px', fontWeight: 700, color: '#e95e6f' }}>
+                    €{Number(activeModule.price).toFixed(2)}/mo
+                  </span>
+                </div>
+
+                {activeModule.moduleTagline && (
+                  <p style={{ ...mono, fontSize: '12px', color: '#6c6762', marginBottom: '10px', lineHeight: 1.7 }}>
+                    {activeModule.moduleTagline}
+                  </p>
+                )}
+
+                <p style={{ ...mono, fontSize: '13px', color: '#555', lineHeight: 1.75, marginBottom: '15px' }}>
+                  {activeModule.moduleOverview ?? 'This module extends Florist Core with focused automation and reporting capabilities.'}
+                </p>
+
+                {activeModule.moduleBenefits.length > 0 && (
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: '8px' }}>
+                    {activeModule.moduleBenefits.map((benefit) => (
+                      <li key={benefit} style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
+                        <span
+                          style={{
+                            width: '16px',
+                            height: '16px',
+                            borderRadius: '50%',
+                            background: '#fdeff2',
+                            color: '#e95e6f',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '10px',
+                            fontWeight: 700,
+                            flexShrink: 0,
+                          }}
+                        >
+                          ✓
+                        </span>
+                        <span style={{ ...mono, fontSize: '12px', color: '#3f3a35', fontWeight: 600 }}>
+                          {benefit}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── BENEFITS ── */}
       <section style={{ background: 'white', borderTop: '1px solid #f0ede8', borderBottom: '1px solid #f0ede8' }}>

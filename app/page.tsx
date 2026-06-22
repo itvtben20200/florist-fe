@@ -1,6 +1,6 @@
 
 import { api } from '@/lib/api';
-import { ProductCard } from '@/components/product/ProductCard';
+import { HomeProductShowcase } from '@/components/product/HomeProductShowcase';
 import { TestimonialsSection } from '@/components/layout/TestimonialsSection';
 import { CtaBanner } from '@/components/layout/CtaBanner';
 import { SiteFooter } from '@/components/layout/SiteFooter';
@@ -282,23 +282,7 @@ export default async function HomePage() {
               </div>
             </div>
 
-            {productsWithVisuals.length === 0 ? (
-              <p className="py-20 text-center" style={{ color: '#aaa' }}>No products available yet.</p>
-            ) : (
-              <div
-                className="text-left"
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(min(265px, 100%), 1fr))',
-                  maxWidth: '100%',
-                  gap: '26px',
-                }}
-              >
-                {productsWithVisuals.map((p) => (
-                  <ProductCard key={p.id} product={p} />
-                ))}
-              </div>
-            )}
+            <HomeProductShowcase products={productsWithVisuals} />
           </div>
         </div>
       </section>

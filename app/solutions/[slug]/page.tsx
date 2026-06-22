@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getSolutionBySlug } from '@/lib/solutions';
+import { getSolutionBySlug, resolveCanonicalSolutionSlug } from '@/lib/solutions';
 import SolutionDetailClient from './SolutionDetailClient';
 import { api } from '@/lib/api';
 import { SiteFooter } from '@/components/layout/SiteFooter';
@@ -14,13 +14,12 @@ interface BackendProduct {
   stock: number;
 }
 
-async function getProductBySlug(slug: string): Promise<BackendProduct | null> {
+async function getProducts(): Promise<BackendProduct[]> {
   try {
     const res = await api.get(`/products?limit=50`);
-    const products: BackendProduct[] = res.data.products ?? [];
-    return products.find((p) => p.slug === slug) ?? null;
+    return res.data.products ?? [];
   } catch {
-    return null;
+    return [];
   }
 }
 
@@ -32,11 +31,15 @@ export default async function SolutionDetailPage({
   const content = getSolutionBySlug(params.slug);
   if (!content) notFound();
 
-  const product = await getProductBySlug(params.slug);
+  const products = await getProducts();
+  const product = products.find((p) => {
+    const canonical = resolveCanonicalSolutionSlug(p.slug, p.name);
+    return canonical === content.slug;
+  }) ?? null;
 
   return (
     <>
-      <SolutionDetailClient content={content} product={product} />
+      <SolutionDetailClient content={content} product={product} products={products} />
       <SiteFooter />
     </>
   );
