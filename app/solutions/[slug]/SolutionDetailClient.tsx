@@ -199,7 +199,7 @@ export default function SolutionDetailClient({
         ...p,
         canonicalSlug,
         displayName: solutionContent?.name ?? p.name,
-        displayImage: p.images?.[0] ?? solutionContent?.heroImage,
+        displayImage: solutionContent?.heroImage ?? p.images?.[0],
         moduleTagline: solutionContent?.tagline,
         moduleOverview: solutionContent?.overview,
         moduleBenefits: solutionContent?.benefits?.slice(0, 3).map((b) => b.title) ?? [],
