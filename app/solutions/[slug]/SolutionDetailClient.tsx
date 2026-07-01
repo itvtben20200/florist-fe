@@ -403,9 +403,9 @@ export default function SolutionDetailClient({
                 <div className="flex items-end gap-2 mb-1">
                   <span
                     style={{
-                      ...serif,
+                      ...mono,
                       fontSize: '44px',
-                      fontWeight: 600,
+                      fontWeight: 700,
                       color: '#1a1a1a',
                       lineHeight: 1,
                     }}
