@@ -1,7 +1,8 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
+import { useTranslations } from 'next-intl';
 
 type HomeProduct = {
   id: string;
@@ -40,6 +41,8 @@ function getAddOnImageFrameShift(product: HomeProduct) {
 }
 
 export function HomeProductShowcase({ products }: HomeProductShowcaseProps) {
+  const t = useTranslations('ShowcasePlatform');
+
   const coreProduct = useMemo(
     () => products.find((p) => p.slug === 'florist-core') ?? products[0],
     [products],
@@ -113,7 +116,7 @@ export function HomeProductShowcase({ products }: HomeProductShowcaseProps) {
                   alignSelf: 'flex-start',
                 }}
               >
-                Core Platform
+                {t('coreBadge')}
               </span>
 
               <h3
@@ -142,7 +145,7 @@ export function HomeProductShowcase({ products }: HomeProductShowcaseProps) {
               </p>
 
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 16px', display: 'flex', flexDirection: 'column', gap: '7px' }}>
-                {['Orders & POS', 'Real-Time Inventory', 'Subscriptions'].map((feature) => (
+                {[t('featurePos'), t('featureInventory'), t('featureSubscriptions')].map((feature) => (
                   <li
                     key={feature}
                     style={{
@@ -177,19 +180,20 @@ export function HomeProductShowcase({ products }: HomeProductShowcaseProps) {
                       marginBottom: '2px',
                     }}
                   >
-                    Base + selected add-ons
+                    {t('pricingLabel')}
                   </span>
                   <span
                     style={{
-                      fontFamily: 'var(--font-cormorant, "Cormorant Garamond"), serif',
-                      fontSize: '28px',
-                      fontWeight: 600,
-                      color: '#ffffff',
+                      fontFamily: 'var(--font-montserrat, Montserrat), sans-serif',
+                      fontSize: '20px',
+                      fontWeight: 500,
+                      color: 'rgba(255,255,255,0.92)',
                       lineHeight: 1,
+                      letterSpacing: '0.3px',
                     }}
                   >
                     {formatPrice(totalPrice)}
-                    <span style={{ fontSize: '14px', fontWeight: 400, opacity: 0.6 }}>/mo</span>
+                    <span style={{ fontSize: '12px', fontWeight: 400, opacity: 0.55, marginLeft: '2px' }}>{t('perMonth')}</span>
                   </span>
                   <span
                     style={{
@@ -201,8 +205,10 @@ export function HomeProductShowcase({ products }: HomeProductShowcaseProps) {
                     }}
                   >
                     {selectedAddOnProducts.length === 0
-                      ? 'No add-ons selected yet.'
-                      : `${selectedAddOnProducts.length} add-on${selectedAddOnProducts.length > 1 ? 's' : ''} selected`}
+                      ? t('noAddOns')
+                      : selectedAddOnProducts.length > 1
+                        ? t('addOnsSelectedPlural', { count: selectedAddOnProducts.length })
+                        : t('addOnsSelected', { count: selectedAddOnProducts.length })}
                   </span>
                 </div>
                 <span
@@ -219,7 +225,7 @@ export function HomeProductShowcase({ products }: HomeProductShowcaseProps) {
                     borderRadius: '4px',
                   }}
                 >
-                  Get Started
+                  {t('getStarted')}
                 </span>
               </div>
             </div>
@@ -241,7 +247,7 @@ export function HomeProductShowcase({ products }: HomeProductShowcaseProps) {
                 whiteSpace: 'nowrap',
               }}
             >
-              Enhance with Add-ons
+              {t('enhanceLabel')}
             </span>
             <div style={{ flex: 1, height: '1px', background: '#ebe6dc' }} />
           </div>
@@ -316,7 +322,7 @@ export function HomeProductShowcase({ products }: HomeProductShowcaseProps) {
                         fontFamily: 'var(--font-montserrat, Montserrat), sans-serif',
                       }}
                     >
-                      Add-on
+                      {t('addonBadge')}
                     </span>
 
                     <span
@@ -395,7 +401,7 @@ export function HomeProductShowcase({ products }: HomeProductShowcaseProps) {
                           fontWeight: selected ? 600 : 500,
                         }}
                       >
-                        {selected ? 'Selected' : 'Tap to select'}
+                        {selected ? t('removeFromBundle') : t('addToBundle')}
                       </span>
                     </div>
                   </div>

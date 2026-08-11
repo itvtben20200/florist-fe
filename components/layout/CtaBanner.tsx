@@ -1,8 +1,11 @@
 "use client";
 import React from 'react';
 import Script from 'next/script';
+import { useTranslations } from 'next-intl';
 
 export function CtaBanner() {
+  const t = useTranslations('CTA');
+
   return (
     <section
       id="contact"
@@ -11,21 +14,21 @@ export function CtaBanner() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-14 items-start">
           <div className="pt-2">
-            <span className="inline-block bg-white/10 text-green-100 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6 border border-white/10">Get in Touch</span>
+            <span className="inline-block bg-white/10 text-green-100 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6 border border-white/10">{t('badge')}</span>
             <h2 
               className="text-4xl xl:text-5xl font-medium mb-5 leading-tight"
               style={{ fontFamily: 'var(--font-cormorant, "Cormorant Garamond"), serif' }}
             >
-              Ready to Transform<br />Your Flower Shop?
+              {t('title')}
             </h2>
             <p className="text-lg text-green-50 mb-8 leading-relaxed">
-              Book a free consultation with our team or create your account today. No credit card, no commitments — just discover how FloristOS fits your business.
+              {t('description')}
             </p>
             <ul className="space-y-3 text-green-50 text-sm">
-              <li className="flex items-center gap-2.5"><span className="font-bold" style={{ color: '#e95e6f' }}>✓</span> No lock-in — transparent monthly pricing</li>
-              <li className="flex items-center gap-2.5"><span className="font-bold" style={{ color: '#e95e6f' }}>✓</span> Dedicated onboarding — included, no extra cost</li>
-              <li className="flex items-center gap-2.5"><span className="font-bold" style={{ color: '#e95e6f' }}>✓</span> GDPR compliant · EU-hosted data centers</li>
-              <li className="flex items-center gap-2.5"><span className="font-bold" style={{ color: '#e95e6f' }}>✓</span> Cancel any time — no lock-in, no penalties</li>
+              <li className="flex items-center gap-2.5"><span className="font-bold" style={{ color: '#e95e6f' }}>✓</span> {t('feature1')}</li>
+              <li className="flex items-center gap-2.5"><span className="font-bold" style={{ color: '#e95e6f' }}>✓</span> {t('feature2')}</li>
+              <li className="flex items-center gap-2.5"><span className="font-bold" style={{ color: '#e95e6f' }}>✓</span> {t('feature3')}</li>
+              <li className="flex items-center gap-2.5"><span className="font-bold" style={{ color: '#e95e6f' }}>✓</span> {t('feature4')}</li>
             </ul>
           </div>
           <div className="bg-white rounded-2xl shadow-2xl p-8 text-gray-800">
@@ -33,10 +36,10 @@ export function CtaBanner() {
               className="font-bold text-xl mb-1"
               style={{ color: '#0a3622', fontFamily: 'var(--font-cormorant, "Cormorant Garamond"), serif' }}
             >
-              Book a Consultation
+              {t('formTitle')}
             </h3>
             <p className="text-gray-500 text-sm mb-6">
-              Or <a href="/auth/register" className="font-semibold hover:underline" style={{ color: '#e95e6f' }}>create a free account</a> and start immediately.
+              {t('formSubtitle')} <a href="/auth/register" className="font-semibold hover:underline" style={{ color: '#e95e6f' }}>{t('formSubtitleLink')}</a> {t('formSubtitleEnd')}
             </p>
             <div
               data-form-id="d4137f9b-a56b-f111-a826-000d3abe4c05"

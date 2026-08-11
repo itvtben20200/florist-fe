@@ -1,29 +1,43 @@
+import createMiddleware from 'next-intl/middleware';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { routing } from './i18n/routing';
+
+const intlMiddleware = createMiddleware(routing);
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Strip locale prefix for auth checks (/de/account → /account)
+  const localePattern = /^\/(en|de)(\/|$)/;
+  const strippedPath = pathname.replace(localePattern, '/');
+
   const accessToken = request.cookies.get('accessToken')?.value;
   const userRole = request.cookies.get('userRole')?.value;
 
   // Protect /account routes — must be logged in
-  if (pathname.startsWith('/account') && !accessToken) {
-    return NextResponse.redirect(new URL('/auth/login', request.url));
+  if (strippedPath.startsWith('/account') && !accessToken) {
+    const loginUrl = new URL('/auth/login', request.url);
+    return NextResponse.redirect(loginUrl);
   }
 
   // Protect /admin routes — must be ADMIN or SUPERADMIN
-  if (pathname.startsWith('/admin')) {
+  if (strippedPath.startsWith('/admin')) {
     if (!accessToken) {
-      return NextResponse.redirect(new URL('/auth/login', request.url));
+      const loginUrl = new URL('/auth/login', request.url);
+      return NextResponse.redirect(loginUrl);
     }
     if (userRole !== 'ADMIN' && userRole !== 'SUPERADMIN') {
       return NextResponse.redirect(new URL('/', request.url));
     }
   }
 
-  return NextResponse.next();
+  return intlMiddleware(request);
 }
 
 export const config = {
-  matcher: ['/account/:path*', '/admin/:path*'],
+  matcher: [
+    // Match all paths except Next.js internals and static files
+    '/((?!_next|_vercel|.*\\..*).*)',
+  ],
 };

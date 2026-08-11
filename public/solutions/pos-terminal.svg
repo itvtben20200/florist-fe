@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" width="400" height="320">
+  <!-- Background -->
+  <rect width="400" height="320" fill="#f0faf5" rx="16"/>
+
+  <!-- POS terminal body -->
+  <rect x="110" y="40" width="180" height="120" rx="12" fill="#135a43"/>
+  <!-- Screen -->
+  <rect x="124" y="54" width="152" height="88" rx="6" fill="#e8f5ee"/>
+  <!-- Screen content lines -->
+  <rect x="134" y="68" width="80" height="8" rx="3" fill="#135a43" opacity="0.3"/>
+  <rect x="134" y="82" width="60" height="8" rx="3" fill="#135a43" opacity="0.2"/>
+  <rect x="134" y="96" width="100" height="8" rx="3" fill="#135a43" opacity="0.2"/>
+  <!-- Price highlight -->
+  <rect x="218" y="110" width="46" height="18" rx="4" fill="#e95e6f" opacity="0.9"/>
+  <text x="241" y="123" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="white">€42.50</text>
+
+  <!-- Card reader slot -->
+  <rect x="168" y="168" width="64" height="8" rx="4" fill="#0d4030"/>
+
+  <!-- Keypad / buttons row -->
+  <rect x="124" y="150" width="152" height="28" rx="6" fill="#0d4030"/>
+  <!-- Keypad dots -->
+  <circle cx="148" cy="164" r="5" fill="#1a7a5a"/>
+  <circle cx="172" cy="164" r="5" fill="#1a7a5a"/>
+  <circle cx="196" cy="164" r="5" fill="#1a7a5a"/>
+  <circle cx="220" cy="164" r="5" fill="#e95e6f"/>
+  <circle cx="244" cy="164" r="5" fill="#1a7a5a"/>
+  <circle cx="268" cy="164" r="5" fill="#1a7a5a"/>
+
+  <!-- Stand / neck -->
+  <rect x="188" y="178" width="24" height="24" rx="4" fill="#135a43"/>
+  <!-- Base -->
+  <rect x="148" y="198" width="104" height="14" rx="7" fill="#0d4030"/>
+
+  <!-- Payment cards floating -->
+  <rect x="44" y="90" width="70" height="46" rx="8" fill="#e95e6f" transform="rotate(-12 44 90)"/>
+  <rect x="52" y="104" width="42" height="6" rx="3" fill="white" opacity="0.6" transform="rotate(-12 44 90)"/>
+  <rect x="52" y="116" width="28" height="5" rx="2.5" fill="white" opacity="0.4" transform="rotate(-12 44 90)"/>
+
+  <rect x="286" y="100" width="70" height="46" rx="8" fill="#2B6AA8" transform="rotate(10 286 100)"/>
+  <rect x="292" y="114" width="42" height="6" rx="3" fill="white" opacity="0.6" transform="rotate(10 286 100)"/>
+  <rect x="292" y="126" width="28" height="5" rx="2.5" fill="white" opacity="0.4" transform="rotate(10 286 100)"/>
+
+  <!-- Checkmark / receipt strip -->
+  <rect x="155" y="222" width="90" height="52" rx="6" fill="white" stroke="#d1e8de" stroke-width="1.5"/>
+  <line x1="168" y1="236" x2="232" y2="236" stroke="#135a43" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+  <line x1="168" y1="246" x2="220" y2="246" stroke="#135a43" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+  <line x1="168" y1="256" x2="232" y2="256" stroke="#135a43" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+  <!-- Checkmark -->
+  <circle cx="234" cy="244" r="9" fill="#e95e6f" opacity="0"/>
+  <polyline points="222,258 228,264 240,252" stroke="#e95e6f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Label -->
+  <text x="200" y="294" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="600" fill="#135a43" letter-spacing="0.5">POS Terminal</text>
+</svg>

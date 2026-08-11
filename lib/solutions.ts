@@ -794,6 +794,227 @@ export const SOLUTIONS: Record<string, SolutionContent> = {
       },
     ],
   },
+
+  // ─────────────────────────────────────────────────────────────────
+  'pos-terminal': {
+    slug: 'pos-terminal',
+    name: 'POS Terminal',
+    tagline: 'Sell faster at the counter — built for florists',
+    category: 'Sales & Operations',
+    categoryColor: '#135a43',
+    accentColor: '#e95e6f',
+    heroImage: '/solutions/pos-terminal.svg',
+    overview:
+      'POS Terminal brings a fast, touch-optimised point-of-sale experience directly into the Florist Portal. Every walk-in sale, custom order, and payment is captured in real time — updating inventory, feeding your daily close, and building your customer history without a single manual entry.',
+    benefits: [
+      {
+        icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01',
+        title: 'Fast Order Entry',
+        body: 'Quick-add products from a visual catalogue, key in custom items, and apply modifiers in seconds — keeping your counter queue moving.',
+      },
+      {
+        icon: 'M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z',
+        title: 'Multi-Payment Acceptance',
+        body: 'Cash, card, contactless, and split-payment methods — all handled through a single interface with built-in Stripe Terminal support.',
+      },
+      {
+        icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
+        title: 'Real-Time Inventory Deduction',
+        body: 'Every sale instantly reduces stock levels across all channels — so your online store and counter are always in sync.',
+      },
+      {
+        icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
+        title: 'Walk-In & Pre-Order Workflow',
+        body: 'Handle spontaneous walk-ins and pre-booked pickup orders from the same counter view — with clear status indicators for each.',
+      },
+      {
+        icon: 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z',
+        title: 'Receipt & Invoice Printing',
+        body: 'Print or email branded receipts and full invoices directly from the counter in one tap — no manual formatting required.',
+      },
+      {
+        icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+        title: 'Daily Close Integration',
+        body: 'Every POS transaction feeds directly into Daily Close Agent — so end-of-day reconciliation is already done before you start tallying up.',
+      },
+    ],
+    inclusions: [
+      { label: 'Touch-Optimised Sales Interface', tier: 'core' },
+      { label: 'Multi-Payment Processing (Cash, Card, Contactless)', tier: 'core' },
+      { label: 'Real-Time Inventory Sync', tier: 'core' },
+      { label: 'Receipt & Invoice Printing / Email', tier: 'core' },
+      { label: 'Customer Lookup & Loyalty Points', tier: 'core' },
+      { label: 'Walk-In & Pre-Order Handling', tier: 'core' },
+      { label: 'Daily Close Agent Integration', tier: 'core' },
+      { label: 'Offline Mode (limited, queued sync)', tier: 'core' },
+      { label: 'Multi-Till & Multi-Register Support', tier: 'pro' },
+      { label: 'Custom Receipt Branding', tier: 'pro' },
+      { label: 'Discount & Promotion Engine', tier: 'pro' },
+      { label: 'Gift Card & Voucher Processing', tier: 'pro' },
+      { label: 'Multi-Location POS Network', tier: 'enterprise' },
+      { label: 'Hardware Bundle & Setup Service', tier: 'enterprise' },
+      { label: 'Dedicated POS Onboarding Support', tier: 'enterprise' },
+    ],
+    useCases: [
+      {
+        title: 'The Counter-First Shop',
+        description:
+          'Most of your sales happen face-to-face. POS Terminal gives your staff a clean, fast interface that handles any transaction without slowing down the queue.',
+      },
+      {
+        title: 'The Mixed-Channel Florist',
+        description:
+          'Online orders and walk-ins share the same inventory pool. POS Terminal keeps everything in sync automatically — no double-entry, no overselling.',
+      },
+      {
+        title: 'The Peak-Day Rush',
+        description:
+          "On Valentine's Day or Mother's Day, speed is everything. Pre-loaded bundles and one-tap product buttons let your team serve more customers in less time.",
+      },
+      {
+        title: 'The Multi-Till Setup',
+        description:
+          'Run two or more tills during busy periods — each synced to the same product catalogue, inventory, and CRM without conflict or duplication.',
+      },
+    ],
+    faq: [
+      {
+        question: 'What hardware does the POS Terminal run on?',
+        answer:
+          'It runs in the browser on any tablet or touch-screen PC. We support iPad, Android tablets, and Windows touch displays out of the box — no proprietary hardware required.',
+      },
+      {
+        question: 'Does it work offline?',
+        answer:
+          'A limited offline mode is available for core sales. Transactions queue locally and sync automatically the moment connectivity is restored.',
+      },
+      {
+        question: 'Can I customise the product layout on the POS screen?',
+        answer:
+          'Yes. You can organise products into categories and set quick-access shortcuts for your best-sellers — making the counter experience as fast as possible for your staff.',
+      },
+      {
+        question: 'How does POS Terminal connect to my card reader?',
+        answer:
+          'We support Stripe Terminal hardware directly. For other card readers, contact us about compatibility — most industry-standard readers are supported.',
+      },
+      {
+        question: 'Does POS Terminal replace my online store?',
+        answer:
+          'No — they are complementary. POS Terminal and your online storefront share the same product catalogue and inventory, so you manage one source of truth rather than two separate systems.',
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────────────
+  'online-orders': {
+    slug: 'online-orders',
+    name: 'Online Orders',
+    tagline: 'Your flower shop, open 24/7 — orders handled while you focus on the flowers',
+    category: 'Online Storefront',
+    categoryColor: '#0e6b4a',
+    accentColor: '#e95e6f',
+    heroImage: '/solutions/florist-core.png',
+    overview:
+      'Online Orders brings a fully branded customer-facing storefront to your FloristOS platform. Customers browse your catalogue, customise arrangements, and pay securely — while every order flows instantly into your operations dashboard, inventory, and dispatch board without a single manual step.',
+    benefits: [
+      {
+        icon: 'M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z',
+        title: 'Branded Online Storefront',
+        body: 'A beautiful, mobile-first shop with your logo, colours, and product photography — up and running in minutes, no developer required.',
+      },
+      {
+        icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
+        title: 'Instant Order Routing',
+        body: 'Every customer order appears instantly on your operations dashboard and is assigned to the right team member — zero manual intake.',
+      },
+      {
+        icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
+        title: 'Live Inventory Sync',
+        body: 'Online stock levels reflect your real inventory in real time — so customers only ever see what you can actually fulfil.',
+      },
+      {
+        icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
+        title: 'Delivery Slot Booking',
+        body: 'Customers pick a delivery date and time slot when ordering — plugged directly into your route planning so nothing is double-booked.',
+      },
+      {
+        icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+        title: 'Automated Customer Comms',
+        body: 'Confirmation, preparation, dispatch, and delivery emails are sent automatically at every milestone — no manual follow-up needed.',
+      },
+      {
+        icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+        title: 'Sales & Channel Analytics',
+        body: 'See which products sell best online, peak ordering times, cart abandonment rates, and revenue by channel — all in one dashboard.',
+      },
+    ],
+    inclusions: [
+      { label: 'Branded Storefront & Domain', tier: 'core' },
+      { label: 'Mobile-Optimised Checkout', tier: 'core' },
+      { label: 'Stripe & Card Payment Processing', tier: 'core' },
+      { label: 'Real-Time Inventory Sync', tier: 'core' },
+      { label: 'Delivery Slot & Date Picker', tier: 'core' },
+      { label: 'Order Confirmation Emails', tier: 'core' },
+      { label: 'Order Tracking for Customers', tier: 'core' },
+      { label: 'Admin Order Dashboard', tier: 'core' },
+      { label: 'Custom Domain & SSL', tier: 'pro' },
+      { label: 'Abandoned Cart Recovery', tier: 'pro' },
+      { label: 'Discount Codes & Promotions', tier: 'pro' },
+      { label: 'Product Customisation (message cards, colours)', tier: 'pro' },
+      { label: 'Multi-Location Order Routing', tier: 'enterprise' },
+      { label: 'Priority Order SLA & Dedicated Support', tier: 'enterprise' },
+    ],
+    useCases: [
+      {
+        title: 'The Shop Without a Web Presence',
+        description:
+          'No website yet? Online Orders gives you a fully working e-commerce storefront synced to your operations the same day you sign up — no agency, no developer.',
+      },
+      {
+        title: 'The Existing Website Owner',
+        description:
+          'Already have a website? Embed the ordering widget or link to your FloristOS storefront. All orders still land directly in your operations board.',
+      },
+      {
+        title: 'The Delivery & Gifting Specialist',
+        description:
+          'If delivery and gifting orders are your core business, the slot picker, message card customisation, and automated tracking emails are built exactly for you.',
+      },
+      {
+        title: 'The Event & Corporate Account Manager',
+        description:
+          'Set up trade pricing portals for your regular corporate accounts so their team can order directly — with the right pricing applied automatically.',
+      },
+    ],
+    faq: [
+      {
+        question: 'Do I need a website to use Online Orders?',
+        answer:
+          'No. Online Orders provides a fully standalone branded storefront at a FloristOS subdomain on the Core plan. Pro and Enterprise tiers support your own custom domain with a free SSL certificate.',
+      },
+      {
+        question: 'How do online orders reach my team?',
+        answer:
+          'Every order placed online is routed instantly to your operations dashboard and appears on the same board as your walk-in and phone orders — no separate inbox to monitor.',
+      },
+      {
+        question: 'What payment methods are supported?',
+        answer:
+          'We process card payments via Stripe, supporting Visa, Mastercard, Amex, Apple Pay, and Google Pay. Bank transfer and invoice options are available on Enterprise.',
+      },
+      {
+        question: 'Can customers track their order after purchase?',
+        answer:
+          'Yes. Customers receive a tracking link in their confirmation email. The link shows real-time status updates as your team prepares and dispatches the order.',
+      },
+      {
+        question: 'Is the storefront optimised for mobile?',
+        answer:
+          'Fully. The checkout is designed mobile-first and passes Google Core Web Vitals — so customers on any device get a fast, smooth ordering experience.',
+      },
+    ],
+  },
 };
 
 const SOLUTION_SLUG_ALIASES: Record<string, string> = {
@@ -810,6 +1031,10 @@ const SOLUTION_SLUG_ALIASES: Record<string, string> = {
   'quarterly-close': 'quarterly-close-agent',
   'yearly-close': 'yearly-close-agent',
   'annual-close-agent': 'yearly-close-agent',
+  'pos': 'pos-terminal',
+  'point-of-sale': 'pos-terminal',
+  'florist-pos': 'pos-terminal',
+  'pos-system': 'pos-terminal',
 };
 
 const SOLUTION_NAME_TO_SLUG: Record<string, string> = {
@@ -821,6 +1046,9 @@ const SOLUTION_NAME_TO_SLUG: Record<string, string> = {
   'managed secured workplace': 'managed-secured-workplace',
   'managed soc': 'managed-soc',
   'managed soc (security operations center)': 'managed-soc',
+  'pos terminal': 'pos-terminal',
+  'pos': 'pos-terminal',
+  'point of sale': 'pos-terminal',
 };
 
 export function resolveCanonicalSolutionSlug(slug?: string, name?: string): string | undefined {
@@ -841,6 +1069,7 @@ export function resolveCanonicalSolutionSlug(slug?: string, name?: string): stri
     if (lowerSlug.includes('quarterly') && lowerSlug.includes('close')) return 'quarterly-close-agent';
     if ((lowerSlug.includes('yearly') || lowerSlug.includes('annual')) && lowerSlug.includes('close')) return 'yearly-close-agent';
     if (lowerSlug.includes('florist')) return 'florist-core';
+    if (lowerSlug.includes('pos') || lowerSlug.includes('point-of-sale')) return 'pos-terminal';
   }
 
   const normalizedName = name?.trim().toLowerCase();
@@ -853,6 +1082,7 @@ export function resolveCanonicalSolutionSlug(slug?: string, name?: string): stri
   if (normalizedName.includes('quarterly') && normalizedName.includes('close')) return 'quarterly-close-agent';
   if ((normalizedName.includes('yearly') || normalizedName.includes('annual')) && normalizedName.includes('close')) return 'yearly-close-agent';
   if (normalizedName.includes('florist')) return 'florist-core';
+  if (normalizedName.includes('pos') || normalizedName.includes('point of sale')) return 'pos-terminal';
 
   return rawSlug;
 }
@@ -879,6 +1109,7 @@ export function getSolutionBySlug(slug: string): SolutionContent | undefined {
   if (lower.includes('quarterly') && lower.includes('close')) return SOLUTIONS['quarterly-close-agent'];
   if ((lower.includes('yearly') || lower.includes('annual')) && lower.includes('close')) return SOLUTIONS['yearly-close-agent'];
   if (lower.includes('florist')) return SOLUTIONS['florist-core'];
+  if (lower.includes('pos') || lower.includes('point-of-sale')) return SOLUTIONS['pos-terminal'];
 
   return undefined;
 }
