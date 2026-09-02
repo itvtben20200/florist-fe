@@ -34,6 +34,9 @@ const solutionImageMap: Record<string, string> = {
   'managed soc': '/solutions/soc-service.png',
   'managed soc (security operations center)': '/solutions/soc-service.png',
   'pos terminal': '/solutions/pos-terminal.svg',
+  'delivery routes': '/solutions/delivery-routes.svg',
+  'inventory & stock': '/solutions/inventory-stock.svg',
+  'inventory and stock': '/solutions/inventory-stock.svg',
 };
 
 function getSolutionImage(name: string): string | undefined {
@@ -49,6 +52,8 @@ function getSolutionImage(name: string): string | undefined {
     return solutionImageMap['managed soc (security operations center)'];
   }
   if (normalized.includes('pos') || normalized.includes('point of sale')) return solutionImageMap['pos terminal'];
+  if (normalized.includes('delivery') || normalized.includes('route')) return solutionImageMap['delivery routes'];
+  if (normalized.includes('inventory') || normalized.includes('stock')) return solutionImageMap['inventory & stock'];
   return undefined;
 }
 
@@ -77,6 +82,9 @@ export default async function HomePage() {
     'managed soc':                           { title: sc('socTitle'),            description: sc('socDesc') },
     'managed soc (security operations center)': { title: sc('socTitle'),         description: sc('socDesc') },
     'pos terminal':                          { title: sc('posTitle'),            description: sc('posDesc') },
+    'delivery routes':                       { title: sc('deliveryRoutesTitle'), description: sc('deliveryRoutesDesc') },
+    'inventory & stock':                     { title: sc('inventoryStockTitle'), description: sc('inventoryStockDesc') },
+    'inventory and stock':                   { title: sc('inventoryStockTitle'), description: sc('inventoryStockDesc') },
   };
 
   function getSolutionCopy(name: string): SolutionCopy | undefined {
@@ -92,6 +100,8 @@ export default async function HomePage() {
       return solutionCopyMap['managed soc (security operations center)'];
     }
     if (normalized.includes('pos') || normalized.includes('point of sale')) return solutionCopyMap['pos terminal'];
+    if (normalized.includes('delivery') || normalized.includes('route')) return solutionCopyMap['delivery routes'];
+    if (normalized.includes('inventory') || normalized.includes('stock')) return solutionCopyMap['inventory & stock'];
     return undefined;
   }
   const productsWithVisuals = products.flatMap((product) => {

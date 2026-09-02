@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#0d4030"/>
+
+  <!-- Map grid lines -->
+  <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
+    <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="400" x2="800" y2="400"/>
+    <line x1="0" y1="500" x2="800" y2="500"/>
+    <line x1="100" y1="0" x2="100" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="600"/>
+    <line x1="300" y1="0" x2="300" y2="600"/>
+    <line x1="400" y1="0" x2="400" y2="600"/>
+    <line x1="500" y1="0" x2="500" y2="600"/>
+    <line x1="600" y1="0" x2="600" y2="600"/>
+    <line x1="700" y1="0" x2="700" y2="600"/>
+  </g>
+
+  <!-- Route path (dashed) -->
+  <path d="M 140 460 Q 200 380 280 340 Q 360 300 380 230 Q 400 160 480 130 Q 560 100 620 150" 
+        stroke="rgba(233,94,111,0.6)" stroke-width="3" stroke-dasharray="10 6" fill="none"/>
+
+  <!-- Route path solid overlay -->
+  <path d="M 140 460 Q 200 380 280 340 Q 360 300 380 230 Q 400 160 480 130 Q 560 100 620 150" 
+        stroke="#e95e6f" stroke-width="2" fill="none" opacity="0.4"/>
+
+  <!-- Stop 1 -->
+  <circle cx="140" cy="460" r="12" fill="#e95e6f" opacity="0.9"/>
+  <circle cx="140" cy="460" r="6" fill="white"/>
+  <rect x="154" y="447" width="80" height="26" rx="5" fill="rgba(0,0,0,0.5)"/>
+  <text x="194" y="464" font-family="monospace" font-size="10" fill="white" text-anchor="middle" font-weight="600">STOP 1 ✓</text>
+
+  <!-- Stop 2 -->
+  <circle cx="280" cy="340" r="12" fill="#e95e6f" opacity="0.9"/>
+  <circle cx="280" cy="340" r="6" fill="white"/>
+  <rect x="294" y="327" width="80" height="26" rx="5" fill="rgba(0,0,0,0.5)"/>
+  <text x="334" y="344" font-family="monospace" font-size="10" fill="white" text-anchor="middle" font-weight="600">STOP 2 ✓</text>
+
+  <!-- Stop 3 (active) -->
+  <circle cx="480" cy="130" r="16" fill="#e95e6f"/>
+  <circle cx="480" cy="130" r="28" fill="rgba(233,94,111,0.2)"/>
+  <circle cx="480" cy="130" r="8" fill="white"/>
+  <rect x="494" y="116" width="90" height="28" rx="5" fill="#e95e6f"/>
+  <text x="539" y="134" font-family="monospace" font-size="10" fill="white" text-anchor="middle" font-weight="700">DELIVERING</text>
+
+  <!-- Stop 4 -->
+  <circle cx="620" cy="150" r="10" fill="rgba(255,255,255,0.3)"/>
+  <circle cx="620" cy="150" r="5" fill="rgba(255,255,255,0.6)"/>
+  <rect x="634" y="138" width="70" height="24" rx="5" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="669" y="154" font-family="monospace" font-size="10" fill="rgba(255,255,255,0.5)" text-anchor="middle">STOP 4</text>
+
+  <!-- Van icon -->
+  <!-- Van body -->
+  <g transform="translate(370, 220)">
+    <rect x="0" y="8" width="52" height="28" rx="4" fill="#135a43" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <rect x="0" y="8" width="20" height="20" rx="3" fill="#1a7055" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+    <rect x="3" y="11" width="13" height="11" rx="2" fill="rgba(255,255,255,0.15)"/>
+    <circle cx="10" cy="38" r="5" fill="#0d4030" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+    <circle cx="10" cy="38" r="2" fill="rgba(255,255,255,0.6)"/>
+    <circle cx="42" cy="38" r="5" fill="#0d4030" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+    <circle cx="42" cy="38" r="2" fill="rgba(255,255,255,0.6)"/>
+    <!-- Location pin on van -->
+    <circle cx="32" cy="4" r="6" fill="#e95e6f"/>
+    <circle cx="32" cy="4" r="3" fill="white"/>
+    <line x1="32" y1="10" x2="32" y2="14" stroke="#e95e6f" stroke-width="2"/>
+  </g>
+
+  <!-- Info cards -->
+  <!-- Card: Route Progress -->
+  <rect x="40" y="40" width="160" height="80" rx="10" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="60" y="68" font-family="monospace" font-size="9" fill="rgba(255,255,255,0.45)" font-weight="700" letter-spacing="1.5">ROUTE PROGRESS</text>
+  <text x="60" y="92" font-family="serif" font-size="28" fill="white" font-weight="400">3/6</text>
+  <text x="60" y="108" font-family="monospace" font-size="9" fill="rgba(255,255,255,0.4)">stops completed</text>
+
+  <!-- Card: ETA -->
+  <rect x="40" y="140" width="160" height="80" rx="10" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="60" y="168" font-family="monospace" font-size="9" fill="rgba(255,255,255,0.45)" font-weight="700" letter-spacing="1.5">NEXT DELIVERY ETA</text>
+  <text x="60" y="192" font-family="serif" font-size="28" fill="#e95e6f" font-weight="400">14 min</text>
+  <text x="60" y="208" font-family="monospace" font-size="9" fill="rgba(255,255,255,0.4)">Musterstraße 12</text>
+
+  <!-- Card: On-Time -->
+  <rect x="40" y="240" width="160" height="80" rx="10" fill="rgba(233,94,111,0.12)" stroke="rgba(233,94,111,0.25)" stroke-width="1"/>
+  <text x="60" y="268" font-family="monospace" font-size="9" fill="rgba(233,94,111,0.8)" font-weight="700" letter-spacing="1.5">ON-TIME RATE</text>
+  <text x="60" y="292" font-family="serif" font-size="28" fill="white" font-weight="400">98%</text>
+  <text x="60" y="308" font-family="monospace" font-size="9" fill="rgba(255,255,255,0.4)">this week</text>
+
+  <!-- Driver status strip at bottom -->
+  <rect x="40" y="500" width="720" height="60" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="68" y="527" font-family="monospace" font-size="9" fill="rgba(255,255,255,0.35)" font-weight="700" letter-spacing="2">DRIVERS ACTIVE TODAY</text>
+  <!-- Driver 1 -->
+  <circle cx="68" cy="548" r="6" fill="#4ade80"/>
+  <text x="82" y="552" font-family="monospace" font-size="10" fill="rgba(255,255,255,0.65)">Anna · 6 stops · On route</text>
+  <!-- Driver 2 -->
+  <circle cx="270" cy="548" r="6" fill="#4ade80"/>
+  <text x="284" y="552" font-family="monospace" font-size="10" fill="rgba(255,255,255,0.65)">Max · 4 stops · 2 remaining</text>
+  <!-- Driver 3 -->
+  <circle cx="500" cy="548" r="6" fill="rgba(255,255,255,0.3)"/>
+  <text x="514" y="552" font-family="monospace" font-size="10" fill="rgba(255,255,255,0.35)">Lena · 5 stops · Completed</text>
+</svg>

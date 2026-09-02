@@ -17,17 +17,16 @@ export async function SiteFooter() {
             <h4 className="font-bold mb-4 text-base">{t('modulesTitle')}</h4>
             <ul className="space-y-2 text-white/70 text-sm">
               <li><Link href="/solutions/pos-terminal" className="hover:text-white">{t('module1')}</Link></li>
-              <li><Link href="/solutions/florist-core" className="hover:text-white">{t('module2')}</Link></li>
+              <li><Link href="/solutions/inventory-stock" className="hover:text-white">{t('module2')}</Link></li>
               <li><Link href="/solutions/online-orders" className="hover:text-white">{t('module3')}</Link></li>
-              <li><Link href="/solutions/florist-core" className="hover:text-white">{t('module4')}</Link></li>
+              <li><Link href="/solutions/delivery-routes" className="hover:text-white">{t('module4')}</Link></li>
               <li><Link href="/subscriptions" className="hover:text-white">{t('module5')}</Link></li>
-              <li><Link href="/solutions/florist-core" className="hover:text-white">{t('module6')}</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="font-bold mb-4 text-base">{t('companyTitle')}</h4>
             <ul className="space-y-2 text-white/70 text-sm">
-              <li><a href="#" className="hover:text-white">{t('company1')}</a></li>
+              <li><Link href="/team" className="hover:text-white">{t('company1')}</Link></li>
               <li><a href="#" className="hover:text-white">{t('company2')}</a></li>
               <li><a href="#" className="hover:text-white">{t('company3')}</a></li>
               <li><a href="#" className="hover:text-white">{t('company4')}</a></li>
@@ -36,9 +35,9 @@ export async function SiteFooter() {
           <div>
             <h4 className="font-bold mb-4 text-base">{t('resourcesTitle')}</h4>
             <ul className="space-y-2 text-white/70 text-sm">
-              <li><a href="#" className="hover:text-white">{t('resource1')}</a></li>
+              <li><Link href="/documentation" className="hover:text-white">{t('resource1')}</Link></li>
               <li><a href="#" className="hover:text-white">{t('resource2')}</a></li>
-              <li><a href="#" className="hover:text-white">{t('resource3')}</a></li>
+              <li><Link href="/system-status" className="hover:text-white">{t('resource3')}</Link></li>
               <li><a href="#" className="hover:text-white">{t('resource4')}</a></li>
               <li><a href="#" className="hover:text-white">{t('resource5')}</a></li>
             </ul>

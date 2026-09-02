@@ -803,7 +803,7 @@ export const SOLUTIONS: Record<string, SolutionContent> = {
     category: 'Sales & Operations',
     categoryColor: '#135a43',
     accentColor: '#e95e6f',
-    heroImage: '/solutions/pos-terminal.svg',
+    heroImage: '/solutions/pos-terminal-hero.png',
     overview:
       'POS Terminal brings a fast, touch-optimised point-of-sale experience directly into the Florist Portal. Every walk-in sale, custom order, and payment is captured in real time — updating inventory, feeding your daily close, and building your customer history without a single manual entry.',
     benefits: [
@@ -1015,6 +1015,226 @@ export const SOLUTIONS: Record<string, SolutionContent> = {
       },
     ],
   },
+
+  // ─────────────────────────────────────────────────────────────────
+  'delivery-routes': {
+    slug: 'delivery-routes',
+    name: 'Delivery Routes',
+    tagline: 'Plan smarter, deliver faster — routes built for florists',
+    category: 'Delivery & Dispatch',
+    categoryColor: '#0d5c4a',
+    accentColor: '#e95e6f',
+    heroImage: '/solutions/delivery-routes.svg',
+    overview:
+      'Delivery Routes brings intelligent route planning directly into FloristOS. From the moment a delivery order is booked to the driver arriving at the door, every stop is planned, sequenced, and tracked in one seamless workflow — so your team delivers more orders in less time, with zero manual route-building.',
+    benefits: [
+      {
+        icon: 'M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7',
+        title: 'Automatic Route Optimisation',
+        body: 'Orders with delivery slots are sequenced into the most efficient route automatically — minimising drive time and fuel cost across every run.',
+      },
+      {
+        icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z',
+        title: 'Live Driver Tracking',
+        body: 'See every driver on a live map in real time — know exactly where each run is, which stops have been completed, and when the next delivery is expected.',
+      },
+      {
+        icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+        title: 'Automated Customer Notifications',
+        body: 'Customers receive an "on the way" SMS or email when their driver is en route — with a live tracking link so they never need to call your shop.',
+      },
+      {
+        icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
+        title: 'Delivery Slot Management',
+        body: 'Set available delivery windows per day, cap slots to match driver capacity, and let customers self-select at checkout — no manual scheduling required.',
+      },
+      {
+        icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
+        title: 'Proof of Delivery',
+        body: 'Drivers capture a photo or signature at each stop. Proof is stored automatically against the order — eliminating disputes and protecting your business.',
+      },
+      {
+        icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+        title: 'Delivery Performance Analytics',
+        body: 'Track on-time rates, average stop duration, kilometres per run, and failed deliveries — so you can improve every week with real data.',
+      },
+    ],
+    inclusions: [
+      { label: 'Automatic Route Optimisation', tier: 'core' },
+      { label: 'Delivery Slot Booking & Capacity Control', tier: 'core' },
+      { label: 'Driver Dispatch & Mobile App', tier: 'core' },
+      { label: 'Live Driver Location Tracking', tier: 'core' },
+      { label: 'Customer "On the Way" Notifications', tier: 'core' },
+      { label: 'Proof of Delivery (Photo & Signature)', tier: 'core' },
+      { label: 'Order Dashboard Integration', tier: 'core' },
+      { label: 'Delivery Performance Reports', tier: 'core' },
+      { label: 'Multi-Driver & Multi-Van Support', tier: 'pro' },
+      { label: 'Custom Delivery Zones & Postcode Rules', tier: 'pro' },
+      { label: 'Dynamic Re-routing on the Fly', tier: 'pro' },
+      { label: 'Priority Delivery & Express Slots', tier: 'pro' },
+      { label: 'Third-Party Courier Integration', tier: 'enterprise' },
+      { label: 'Dedicated Dispatch Manager Support', tier: 'enterprise' },
+    ],
+    useCases: [
+      {
+        title: 'The Single-Driver Shop',
+        description:
+          'Running deliveries yourself or with one member of staff? Delivery Routes sequences your entire day in one tap — no more planning on paper or guessing the best order.',
+      },
+      {
+        title: 'The Multi-Van Operation',
+        description:
+          'Managing two or more drivers across different zones? Assign orders to drivers by postcode or area, track all runs from a single dashboard, and rebalance live if plans change.',
+      },
+      {
+        title: 'The Subscription Florist',
+        description:
+          'Weekly and bi-weekly subscription deliveries repeat on a schedule. Delivery Routes automatically includes them in the relevant day\'s run — no manual re-adding each cycle.',
+      },
+      {
+        title: 'The Event & Corporate Specialist',
+        description:
+          'Large event orders with precise delivery windows? Set exact arrival times per stop and receive alerts if a run is running behind — so your client\'s event always starts on time.',
+      },
+    ],
+    faq: [
+      {
+        question: 'How does route optimisation work?',
+        answer:
+          'When you confirm the day\'s deliveries, Delivery Routes calculates the most efficient sequence based on address locations, delivery slots, and traffic data — then sends the route directly to the driver\'s device.',
+      },
+      {
+        question: 'What device do drivers use?',
+        answer:
+          'Any smartphone. Drivers access their route through a mobile-optimised web app — no app store download required. Turn-by-turn navigation opens in Google Maps or Apple Maps with one tap.',
+      },
+      {
+        question: 'What happens if a customer is not home?',
+        answer:
+          'Drivers can mark a stop as "attempted" with a photo of the safe drop or a note for the customer. A notification is sent automatically, and the order is flagged in your dashboard for follow-up.',
+      },
+      {
+        question: 'Can I manually adjust a route?',
+        answer:
+          'Yes. The auto-planned route is a starting point you can edit. Drag stops to reorder, add a last-minute order, or remove a cancelled delivery — the route updates instantly for the driver.',
+      },
+      {
+        question: 'Does Delivery Routes work with my subscription orders?',
+        answer:
+          'Fully. Recurring subscription deliveries are added to the correct day\'s route automatically based on their billing cycle — so your driver\'s run sheet is always complete without manual input.',
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────────────
+  'inventory-stock': {
+    slug: 'inventory-stock',
+    name: 'Inventory & Stock',
+    tagline: 'Always know what you have — real-time stock built for florists',
+    category: 'Inventory Management',
+    categoryColor: '#1a5c38',
+    accentColor: '#e95e6f',
+    heroImage: '/solutions/inventory-stock.svg',
+    overview:
+      'Inventory & Stock gives you a live, accurate view of everything in your shop — from stems and bouquets to sundries and packaging. Every sale, waste entry, and restock is captured automatically, so your counts are always correct and you never over-sell or run out of your bestsellers.',
+    benefits: [
+      {
+        icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
+        title: 'Real-Time Stock Levels',
+        body: 'Every sale — whether walk-in, online, or subscription — deducts from your live stock count the moment it happens. No manual updates, no end-of-day catch-up.',
+      },
+      {
+        icon: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9',
+        title: 'Low-Stock Alerts',
+        body: 'Set reorder thresholds per product. When stock drops below your limit, you get an instant alert — so you can reorder before you run out, not after.',
+      },
+      {
+        icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
+        title: 'Multi-Channel Sync',
+        body: 'Your counter, online store, and subscription orders all share the same stock pool. When a product sells out in-store, it is hidden automatically on your website — no manual toggling.',
+      },
+      {
+        icon: 'M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z',
+        title: 'Waste & Shrinkage Tracking',
+        body: 'Log wilted stock, damaged items, or arrangement offcuts in seconds. Shrinkage is tracked separately so your sales data stays clean and your true usage is clear.',
+      },
+      {
+        icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10',
+        title: 'Supplier & Reorder Management',
+        body: 'Store supplier details, lead times, and minimum order quantities against each product. Generate reorder lists with one tap and send them directly to your suppliers.',
+      },
+      {
+        icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+        title: 'Stock Movement Reports',
+        body: 'See what sold, what was wasted, and what was restocked — by day, week, or month. Use the data to sharpen your buying and cut the cost of over-ordering.',
+      },
+    ],
+    inclusions: [
+      { label: 'Real-Time Stock Level Tracking', tier: 'core' },
+      { label: 'Multi-Channel Deduction (POS, Online, Subscriptions)', tier: 'core' },
+      { label: 'Low-Stock Alerts & Reorder Thresholds', tier: 'core' },
+      { label: 'Waste & Shrinkage Logging', tier: 'core' },
+      { label: 'Product Catalogue Management', tier: 'core' },
+      { label: 'Stock Movement History', tier: 'core' },
+      { label: 'Supplier Contact & Lead Time Storage', tier: 'core' },
+      { label: 'Online Store Auto-Availability Sync', tier: 'core' },
+      { label: 'Reorder List Generation', tier: 'pro' },
+      { label: 'Batch Stock Adjustments (CSV import)', tier: 'pro' },
+      { label: 'Category & Tag Filtering', tier: 'pro' },
+      { label: 'Custom Stock Units (stems, bunches, pots)', tier: 'pro' },
+      { label: 'Multi-Location Stock Management', tier: 'enterprise' },
+      { label: 'API Access for External Supplier Systems', tier: 'enterprise' },
+    ],
+    useCases: [
+      {
+        title: 'The High-Volume Shop',
+        description:
+          'Selling hundreds of stems a day across walk-ins and online orders? Real-time deduction means your stock count is always accurate — no end-of-day reconciliation required.',
+      },
+      {
+        title: 'The Subscription-Driven Florist',
+        description:
+          "Weekly subscriptions consume stock on a predictable schedule. Inventory & Stock reserves that stock in advance so you're never caught short when fulfilment day arrives.",
+      },
+      {
+        title: 'The Event Specialist',
+        description:
+          'Large event orders require large quantities reserved ahead of time. Allocate stock to an event order the moment it is confirmed and see exactly what is still available for walk-ins.',
+      },
+      {
+        title: 'The Multi-Location Owner',
+        description:
+          'Running two or more shops? View and manage stock across every location from a single dashboard — transfer stock between branches and compare sell-through rates at a glance.',
+      },
+    ],
+    faq: [
+      {
+        question: 'How does stock deduction work across channels?',
+        answer:
+          'Every time an order is confirmed — whether at the counter, online, or via subscription — the relevant items are deducted from your live stock count in real time. Sold-out products are automatically hidden from your online storefront.',
+      },
+      {
+        question: 'Can I track stock by individual stem or only by product?',
+        answer:
+          'Both. You can track finished products (e.g. a rose bouquet) and raw materials (e.g. individual stems) separately. Bill of materials lets you link arrangements back to component stock so usage is captured accurately.',
+      },
+      {
+        question: 'What happens when I receive a new delivery from my supplier?',
+        answer:
+          'Log a stock receipt in seconds — enter the quantities delivered, and your counts update immediately. Receipts are recorded against the supplier for your purchase history.',
+      },
+      {
+        question: 'Can I set different alert thresholds per product?',
+        answer:
+          'Yes. Each product has its own reorder threshold. Set it based on typical daily usage and lead time from your supplier — so you get alerted with enough time to reorder before you run out.',
+      },
+      {
+        question: 'Does Inventory & Stock work with my existing POS?',
+        answer:
+          'Inventory & Stock is built into the Florist Portal alongside POS Terminal and Online Orders — they share the same stock pool by default. There is no separate integration to configure.',
+      },
+    ],
+  },
 };
 
 const SOLUTION_SLUG_ALIASES: Record<string, string> = {
@@ -1035,6 +1255,14 @@ const SOLUTION_SLUG_ALIASES: Record<string, string> = {
   'point-of-sale': 'pos-terminal',
   'florist-pos': 'pos-terminal',
   'pos-system': 'pos-terminal',
+  'delivery': 'delivery-routes',
+  'dispatch': 'delivery-routes',
+  'route-planning': 'delivery-routes',
+  'delivery-dispatch': 'delivery-routes',
+  'inventory': 'inventory-stock',
+  'stock': 'inventory-stock',
+  'stock-management': 'inventory-stock',
+  'inventory-management': 'inventory-stock',
 };
 
 const SOLUTION_NAME_TO_SLUG: Record<string, string> = {
@@ -1049,6 +1277,14 @@ const SOLUTION_NAME_TO_SLUG: Record<string, string> = {
   'pos terminal': 'pos-terminal',
   'pos': 'pos-terminal',
   'point of sale': 'pos-terminal',
+  'delivery routes': 'delivery-routes',
+  'delivery route': 'delivery-routes',
+  'delivery & dispatch': 'delivery-routes',
+  'route planning': 'delivery-routes',
+  'inventory & stock': 'inventory-stock',
+  'inventory and stock': 'inventory-stock',
+  'stock management': 'inventory-stock',
+  'inventory management': 'inventory-stock',
 };
 
 export function resolveCanonicalSolutionSlug(slug?: string, name?: string): string | undefined {
@@ -1070,6 +1306,8 @@ export function resolveCanonicalSolutionSlug(slug?: string, name?: string): stri
     if ((lowerSlug.includes('yearly') || lowerSlug.includes('annual')) && lowerSlug.includes('close')) return 'yearly-close-agent';
     if (lowerSlug.includes('florist')) return 'florist-core';
     if (lowerSlug.includes('pos') || lowerSlug.includes('point-of-sale')) return 'pos-terminal';
+    if (lowerSlug.includes('delivery') || lowerSlug.includes('route') || lowerSlug.includes('dispatch')) return 'delivery-routes';
+    if (lowerSlug.includes('inventory') || lowerSlug.includes('stock')) return 'inventory-stock';
   }
 
   const normalizedName = name?.trim().toLowerCase();
@@ -1083,6 +1321,8 @@ export function resolveCanonicalSolutionSlug(slug?: string, name?: string): stri
   if ((normalizedName.includes('yearly') || normalizedName.includes('annual')) && normalizedName.includes('close')) return 'yearly-close-agent';
   if (normalizedName.includes('florist')) return 'florist-core';
   if (normalizedName.includes('pos') || normalizedName.includes('point of sale')) return 'pos-terminal';
+  if (normalizedName.includes('delivery') || normalizedName.includes('route') || normalizedName.includes('dispatch')) return 'delivery-routes';
+  if (normalizedName.includes('inventory') || normalizedName.includes('stock')) return 'inventory-stock';
 
   return rawSlug;
 }
@@ -1110,6 +1350,8 @@ export function getSolutionBySlug(slug: string): SolutionContent | undefined {
   if ((lower.includes('yearly') || lower.includes('annual')) && lower.includes('close')) return SOLUTIONS['yearly-close-agent'];
   if (lower.includes('florist')) return SOLUTIONS['florist-core'];
   if (lower.includes('pos') || lower.includes('point-of-sale')) return SOLUTIONS['pos-terminal'];
+  if (lower.includes('delivery') || lower.includes('route') || lower.includes('dispatch')) return SOLUTIONS['delivery-routes'];
+  if (lower.includes('inventory') || lower.includes('stock')) return SOLUTIONS['inventory-stock'];
 
   return undefined;
 }

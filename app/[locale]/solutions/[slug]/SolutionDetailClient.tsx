@@ -161,6 +161,8 @@ const TIER_COLOR: Record<string, string> = {
   enterprise: '#7c3aed',
 };
 
+const ROSE = '#e95e6f';
+
 export default function SolutionDetailClient({
   content,
   product,
@@ -183,6 +185,8 @@ export default function SolutionDetailClient({
   // Convert slug like "daily-close-agent" → "dailyCloseAgent" for translation key prefixes
   const faqSlugKey = content.slug.replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase());
   const slugKey = faqSlugKey;
+  const localizedName = contentT(`${slugKey}_name` as Parameters<typeof contentT>[0]);
+  const localizedTagline = contentT(`${slugKey}_tagline` as Parameters<typeof contentT>[0]);
 
   const TIER_LABEL: Record<string, string> = {
     core: t('tierCore'),
@@ -193,6 +197,8 @@ export default function SolutionDetailClient({
   const price = product ? Number(product.price) : null;
   const outOfStock = product ? product.stock === 0 : false;
   const isFloristCore = content.slug === 'florist-core';
+  const isDeliveryRoutes = content.slug === 'delivery-routes';
+  const isOnlineOrders = content.slug === 'online-orders';
 
   const addOnProducts = useMemo(() => {
     if (!isFloristCore || !product) return [];
@@ -299,15 +305,127 @@ export default function SolutionDetailClient({
         <span className="mx-2">/</span>
         <Link href="/#products" style={{ color: '#aaa', textDecoration: 'none' }}>{t('breadcrumbSolutions')}</Link>
         <span className="mx-2">/</span>
-        <span style={{ color: '#1a1a1a', fontWeight: 600 }}>{content.name}</span>
+        <span style={{ color: '#1a1a1a', fontWeight: 600 }}>{localizedName}</span>
       </div>
 
       {/* ── HERO ── */}
-      <section className="max-w-screen-xl mx-auto px-4 sm:px-[5%] py-10 lg:py-16">
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+      <section
+        className={`${isOnlineOrders ? '' : 'max-w-screen-xl mx-auto px-4 sm:px-[5%] py-10 lg:py-16'}`}
+        style={isOnlineOrders ? {
+          position: 'relative',
+          overflow: 'hidden',
+          background: '#0a4d35',
+          marginTop: '24px',
+        } : isDeliveryRoutes ? {
+          position: 'relative',
+          overflow: 'hidden',
+          borderRadius: '24px',
+          background: 'linear-gradient(135deg, #eef8f3 0%, #f7f3ec 48%, #ffffff 100%)',
+          border: '1px solid #e3efe8',
+        } : undefined}
+      >
+        {isOnlineOrders && (
+          <>
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundImage: `url(${content.heroImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center right',
+                opacity: 0.15,
+                pointerEvents: 'none',
+              }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundImage: 'linear-gradient(110deg, rgba(10,77,53,1) 0%, rgba(10,77,53,0.94) 44%, rgba(10,77,53,0.62) 100%)',
+                pointerEvents: 'none',
+              }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                top: '-160px',
+                right: '8%',
+                width: '420px',
+                height: '420px',
+                borderRadius: '999px',
+                background: 'radial-gradient(circle, rgba(233,94,111,0.22) 0%, rgba(233,94,111,0) 68%)',
+                pointerEvents: 'none',
+              }}
+            />
+          </>
+        )}
+        {isDeliveryRoutes && (
+          <>
+            <div
+              style={{
+                position: 'absolute',
+                top: '-120px',
+                left: '-80px',
+                width: '340px',
+                height: '340px',
+                borderRadius: '999px',
+                background: 'radial-gradient(circle, rgba(13,92,74,0.16) 0%, rgba(13,92,74,0) 70%)',
+                pointerEvents: 'none',
+              }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                right: '-90px',
+                bottom: '-150px',
+                width: '380px',
+                height: '380px',
+                borderRadius: '999px',
+                background: 'radial-gradient(circle, rgba(233,94,111,0.14) 0%, rgba(233,94,111,0) 70%)',
+                pointerEvents: 'none',
+              }}
+            />
+          </>
+        )}
+        <div className={isOnlineOrders ? 'max-w-screen-xl mx-auto px-4 sm:px-[5%] py-16 lg:py-24 relative' : ''}>
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
 
           {/* Left: image */}
-          <div className="w-full lg:w-[52%] flex-shrink-0">
+          <div className={`${isOnlineOrders ? 'hidden lg:flex lg:w-[42%] order-last' : 'w-full lg:w-[52%]'} flex-shrink-0`}>
+            {isOnlineOrders ? (
+              <div style={{ width: '100%', maxWidth: '420px', marginLeft: 'auto' }}>
+                <div style={{ borderRadius: '22px', padding: '18px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 30px 70px rgba(0,0,0,0.28)' }}>
+                  <div style={{ borderRadius: '16px', background: '#fbfaf7', overflow: 'hidden' }}>
+                    <div style={{ padding: '16px 18px', borderBottom: '1px solid #eee7df', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ ...mono, fontSize: '10px', fontWeight: 800, letterSpacing: '1.4px', textTransform: 'uppercase', color: '#0a4d35' }}>Blumen Atelier</span>
+                      <span style={{ ...mono, fontSize: '9px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', color: ROSE }}>Live</span>
+                    </div>
+                    <div style={{ padding: '22px 20px' }}>
+                      <div style={{ ...serif, fontSize: '28px', fontWeight: 500, color: '#183b2c', lineHeight: 1.05, marginBottom: '14px' }}>Sommerstrauss<br />bestellen</div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '18px' }}>
+                        {['Abholung', 'Lieferung'].map((mode) => (
+                          <div key={mode} style={{ borderRadius: '10px', padding: '10px', background: mode === 'Lieferung' ? '#eaf7f0' : '#f4f1ec', border: mode === 'Lieferung' ? '1px solid #b7e1c7' : '1px solid #ebe5dc' }}>
+                            <div style={{ ...mono, fontSize: '10px', fontWeight: 700, color: mode === 'Lieferung' ? '#0a4d35' : '#777' }}>{mode}</div>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                        {[
+                          ['Bestellung bezahlt', 'Stripe bestätigt'],
+                          ['Bestand reserviert', '12 Rosen abgezogen'],
+                          ['Dashboard aktualisiert', 'Auftrag bereit'],
+                        ].map(([title, body]) => (
+                          <div key={title} style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', padding: '11px 12px', borderRadius: '12px', background: '#ffffff', border: '1px solid #eee7df' }}>
+                            <span style={{ ...mono, fontSize: '11px', fontWeight: 700, color: '#26352f' }}>{title}</span>
+                            <span style={{ ...mono, fontSize: '10px', color: '#8a8277', whiteSpace: 'nowrap' }}>{body}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
             <div
               style={{
                 borderRadius: '20px',
@@ -319,7 +437,7 @@ export default function SolutionDetailClient({
             >
               <img
                 src={content.heroImage}
-                alt={content.name}
+                alt={localizedName}
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
               <div
@@ -341,12 +459,28 @@ export default function SolutionDetailClient({
                 {contentT(`${slugKey}_category` as Parameters<typeof contentT>[0])}
               </div>
             </div>
+            )}
           </div>
 
           {/* Right: info + purchase */}
           <div className="w-full lg:flex-1">
+            {isOnlineOrders && (
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', borderRadius: '100px', padding: '6px 16px 6px 10px', marginBottom: '30px' }}>
+                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: ROSE }} />
+                <span style={{ ...mono, fontSize: '10px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)' }}>
+                  {contentT(`${slugKey}_category` as Parameters<typeof contentT>[0])}
+                </span>
+              </div>
+            )}
             <h1
-              style={{
+              style={isOnlineOrders ? {
+                ...serif,
+                fontSize: 'clamp(38px, 5.4vw, 66px)',
+                fontWeight: 500,
+                color: 'white',
+                lineHeight: 1.02,
+                marginBottom: '22px',
+              } : {
                 ...serif,
                 fontSize: 'clamp(34px, 4.5vw, 56px)',
                 fontWeight: 500,
@@ -355,11 +489,39 @@ export default function SolutionDetailClient({
                 marginBottom: '14px',
               }}
             >
-              {content.name}
+              {isOnlineOrders ? (
+                <>
+                  Ihr Shop verkauft.<br />Auch nach Ladenschluss.<br />
+                  <span style={{ color: 'rgba(255,255,255,0.48)' }}>Bestellungen landen direkt im System.</span>
+                </>
+              ) : localizedName}
             </h1>
 
+            {!isOnlineOrders && (
+              <p
+                style={{
+                ...mono,
+                fontSize: '12px',
+                fontWeight: 700,
+                letterSpacing: '1.2px',
+                textTransform: 'uppercase',
+                color: content.categoryColor,
+                marginBottom: '12px',
+              }}
+              >
+                {localizedTagline}
+              </p>
+            )}
+
             <p
-              style={{
+              style={isOnlineOrders ? {
+                ...mono,
+                fontSize: '16px',
+                color: 'rgba(255,255,255,0.68)',
+                lineHeight: 1.8,
+                marginBottom: '34px',
+                maxWidth: '560px',
+              } : {
                 ...mono,
                 fontSize: '14px',
                 color: '#555',
@@ -371,9 +533,24 @@ export default function SolutionDetailClient({
               {contentT(`${slugKey}_overview` as Parameters<typeof contentT>[0])}
             </p>
 
+            {isOnlineOrders && (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '12px', maxWidth: '560px', marginBottom: '34px' }}>
+                {[
+                  ['24/7', 'Bestellungen rund um die Uhr'],
+                  ['0', 'manuelle Erfassungsschritte'],
+                  ['Live', 'Bestand, Zahlung und Disposition'],
+                ].map(([value, label]) => (
+                  <div key={label} style={{ borderRadius: '14px', padding: '16px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)' }}>
+                    <div style={{ ...serif, fontSize: '32px', fontWeight: 500, color: 'white', lineHeight: 1 }}>{value}</div>
+                    <div style={{ ...mono, fontSize: '10px', color: 'rgba(255,255,255,0.58)', lineHeight: 1.45, marginTop: '6px', fontWeight: 600 }}>{label}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+
             {/* Quick-benefit pills */}
             <div className="flex flex-wrap gap-2 mb-8">
-              {[t('pillAllInOne'), t('pillCloudBased'), t('pillNoSetupFee'), t('pillCancelAnytime')].map((pill) => (
+              {(isOnlineOrders ? ['Mobil optimierter Shop', 'Stripe-Checkout', 'Live-Bestand', 'Automatische Updates'] : [t('pillAllInOne'), t('pillCloudBased'), t('pillNoSetupFee'), t('pillCancelAnytime')]).map((pill) => (
                 <span
                   key={pill}
                   style={{
@@ -384,15 +561,16 @@ export default function SolutionDetailClient({
                     textTransform: 'uppercase',
                     padding: '5px 13px',
                     borderRadius: '100px',
-                    border: '1px solid #e2ddd8',
-                    color: '#5a5650',
-                    background: 'white',
+                    border: isOnlineOrders ? '1px solid rgba(255,255,255,0.18)' : '1px solid #e2ddd8',
+                    color: isOnlineOrders ? 'rgba(255,255,255,0.75)' : '#5a5650',
+                    background: isOnlineOrders ? 'rgba(255,255,255,0.06)' : 'white',
                   }}
                 >
                   {pill}
                 </span>
               ))}
             </div>
+          </div>
           </div>
         </div>
 
@@ -989,7 +1167,7 @@ export default function SolutionDetailClient({
                 lineHeight: 1.1,
               }}
             >
-              {t('idealForHeading', { name: content.name })}
+              {t('idealForHeading', { name: localizedName })}
             </h2>
           </div>
 
@@ -1195,7 +1373,7 @@ export default function SolutionDetailClient({
                 border: '1px solid #f0ede8',
               }}
             >
-              <LeadForm accentColor={content.accentColor} productName={content.name} />
+              <LeadForm accentColor={content.accentColor} productName={localizedName} />
             </div>
           </div>
         </div>
